@@ -1,11 +1,12 @@
-import 'package:al_barq/config/route_names.dart';
 import 'package:al_barq/src/core/components/buttons.dart';
 import 'package:al_barq/src/core/components/layout_widget.dart';
 import 'package:al_barq/src/core/components/text_feild_with_title.dart';
+import 'package:al_barq/src/features/orders/screens/billing_info.dart';
 import 'package:flutter/material.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({super.key});
+  static const routeName = '/check-out';
 
   @override
   State<CheckoutScreen> createState() => _CheckoutScreenState();
@@ -21,6 +22,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   Widget build(BuildContext context) {
     return LayoutWidget(
+      padding: EdgeInsets.all(16),
       title: 'Check out',
       body: ListView(
         children: [
@@ -59,12 +61,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             controller: _addressController,
           ),
           SizedBox(height: 16),
-          ButtonWidget(
+          CustomElevatedButton(
             text: 'Next',
             onPress: () {
-              Navigator.pushNamed(context, RouteNames.billingInfo);
+              Navigator.pushNamed(context, BillingInformation.routeName);
             },
           ),
+          SizedBox(height: 160),
         ],
       ),
     );

@@ -36,7 +36,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height ?? 45,
+      height: height ?? 55,
       child: InkWell(
         onTap: onTap,
         child: TextFormField(
@@ -46,7 +46,7 @@ class CustomTextField extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.w400,
             fontSize: 16,
-            color: Colors.black.withValues(alpha: 0.8),
+            color: Colors.black.withValues(alpha: 0.7),
           ),
           controller: controller,
           obscureText: obsecureText,

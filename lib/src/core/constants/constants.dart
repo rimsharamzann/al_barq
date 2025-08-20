@@ -7,7 +7,7 @@ mixin Constants {
   static InputDecoration inputDecoration(
     String label,
     Widget? suffixIcon,
-     Color? fillColor,
+    Color? fillColor,
     final Widget? prefixIcon,
   ) => InputDecoration(
     errorMaxLines: 2,
@@ -17,7 +17,7 @@ mixin Constants {
 
     // label: Text(label),
     hintStyle: TextStyle(
-      color: MyColors.textColor,
+      color: MyColors.textColor.withValues(alpha: 0.8),
       fontSize: 14,
       fontWeight: FontWeight.w400,
     ),
@@ -42,7 +42,7 @@ mixin Constants {
     ),
 
     floatingLabelStyle: TextStyle(
-      color: MyColors.textColor,
+      color: MyColors.textColor.withValues(alpha: 0.8),
       fontSize: 12,
       fontWeight: FontWeight.w400,
     ),
@@ -56,18 +56,18 @@ mixin Constants {
     ),
     filled: true,
     suffixStyle: TextStyle(
-      color: MyColors.textColor,
+      color: MyColors.textColor.withValues(alpha: 0.8),
       fontSize: 14,
       fontWeight: FontWeight.w700,
     ),
-    fillColor: fillColor?? Colors.grey.shade300,
+    fillColor: fillColor ?? Colors.grey.shade300,
     helperStyle: TextStyle(
-      color: MyColors.textColor,
+      color: MyColors.textColor.withValues(alpha: 0.8),
       fontSize: 14,
       fontWeight: FontWeight.w400,
     ),
     labelStyle: TextStyle(
-      color: MyColors.textColor,
+      color: MyColors.textColor.withValues(alpha: 0.8),
       fontSize: 14,
       fontWeight: FontWeight.w400,
     ),

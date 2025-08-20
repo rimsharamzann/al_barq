@@ -9,6 +9,8 @@ import '../components/search_appbar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+    static const routeName = '/home-page';
+
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +65,7 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
+      
     );
   }
 

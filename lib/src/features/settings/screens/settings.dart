@@ -1,6 +1,12 @@
-import 'package:al_barq/config/route_names.dart';
 import 'package:al_barq/src/core/components/custom_container.dart';
 import 'package:al_barq/src/core/constants/assets_strings.dart';
+import 'package:al_barq/src/features/auth/screens/login_screen.dart';
+import 'package:al_barq/src/features/contact_us/screens/contact_us_screen.dart';
+import 'package:al_barq/src/features/landing_page/screens/home_page.dart';
+import 'package:al_barq/src/features/orders/screens/cart_acreen.dart';
+import 'package:al_barq/src/features/orders/screens/order_screen.dart';
+import 'package:al_barq/src/features/settings/screens/my_wishlist_screen.dart';
+import 'package:al_barq/src/features/settings/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -8,6 +14,7 @@ import '../../../core/components/layout_widget.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
+  static const routeName = '/setting';
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +29,14 @@ class SettingScreen extends StatelessWidget {
                   icon: Icons.person_outline,
                   title: 'profile',
                   onTap: () {
-                    Navigator.pushNamed(context, RouteNames.profileScreen);
+                    Navigator.pushNamed(context, ProfileScreen.routeName);
                   },
                 ),
                 SettingTile(
                   icon: Icons.shopping_cart_outlined,
                   title: 'My Cart',
                   onTap: () {
-                    Navigator.pushNamed(context, RouteNames.myCart);
+                    Navigator.pushNamed(context, CartScreen.routeName);
                   },
                 ),
                 SettingTile(
@@ -37,14 +44,14 @@ class SettingScreen extends StatelessWidget {
 
                   title: 'My wishlist',
                   onTap: () {
-                    Navigator.pushNamed(context, RouteNames.wishList);
+                    Navigator.pushNamed(context, MyWishList.routeName);
                   },
                 ),
                 SettingTile(
                   svgPath: AssetString.order,
                   title: 'My order',
                   onTap: () {
-                    Navigator.pushNamed(context, RouteNames.orderScreen);
+                    Navigator.pushNamed(context, OrderScreen.routeName);
                   },
                 ),
               ],
@@ -58,7 +65,7 @@ class SettingScreen extends StatelessWidget {
                   icon: Icons.phone_outlined,
                   title: 'Contact us',
                   onTap: () {
-                    Navigator.pushNamed(context, RouteNames.contactUs);
+                    Navigator.pushNamed(context, ContactUsScreen.routeName);
                   },
                 ),
                 SettingTile(
@@ -66,14 +73,14 @@ class SettingScreen extends StatelessWidget {
                   title: 'Privacy policy',
                   onTap: () {
                     //TODO:     privacyPoicy
-                    Navigator.pushNamed(context, RouteNames.homePage);
+                    Navigator.pushNamed(context, HomePage.routeName);
                   },
                 ),
                 SettingTile(
                   svgPath: AssetString.searchPerson,
                   title: 'Terms and Conditions',
                   onTap: () {
-                    Navigator.pushNamed(context, RouteNames.wishList);
+                    // Navigator.pushNamed(context, RouteNames.wishList);
                   },
                 ),
               ],
@@ -94,12 +101,13 @@ class SettingScreen extends StatelessWidget {
                   title: 'Logout',
                   onTap: () {
                     //TODO:     logout
-                    Navigator.pushNamed(context, RouteNames.login);
+                    Navigator.pushNamed(context, LoginScreen.routeName);
                   },
                 ),
               ],
             ),
           ),
+          SizedBox(height: 160),
         ],
       ),
     );
@@ -152,6 +160,6 @@ class SettingTile extends StatelessWidget {
     } else if (icon != null) {
       return Icon(icon, color: Colors.black87, size: 20);
     }
-    return const SizedBox.shrink(); 
+    return const SizedBox.shrink();
   }
 }

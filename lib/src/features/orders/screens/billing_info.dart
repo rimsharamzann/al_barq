@@ -1,5 +1,5 @@
-import 'package:al_barq/config/route_names.dart';
 import 'package:al_barq/src/core/components/layout_widget.dart';
+import 'package:al_barq/src/features/orders/screens/review_order.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/components/buttons.dart';
@@ -7,6 +7,7 @@ import '../../../core/components/text_feild_with_title.dart';
 
 class BillingInformation extends StatefulWidget {
   const BillingInformation({super.key});
+  static const routeName = '/billing- info';
 
   @override
   State<BillingInformation> createState() => _BillingInformationState();
@@ -21,8 +22,9 @@ class _BillingInformationState extends State<BillingInformation> {
   @override
   Widget build(BuildContext context) {
     return LayoutWidget(
+      padding: EdgeInsets.all(18),
       title: 'Billing Information',
-      body: Column(
+      body: ListView(
         children: [
           _title('Payment Information'),
           SizedBox(height: 10),
@@ -50,10 +52,10 @@ class _BillingInformationState extends State<BillingInformation> {
             controller: _cvvController,
           ),
           SizedBox(height: 16),
-          ButtonWidget(
+          CustomElevatedButton(
             text: 'Next',
             onPress: () {
-              Navigator.pushNamed(context, RouteNames.reviewOrder);
+              Navigator.pushNamed(context, ReviewOrderScreen.routeName);
             },
           ),
         ],

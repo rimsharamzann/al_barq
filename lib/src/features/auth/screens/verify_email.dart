@@ -4,6 +4,8 @@ import 'package:pinput/pinput.dart';
 
 class VerifyEmailScreen extends StatefulWidget {
   const VerifyEmailScreen({super.key});
+     static const routeName = '/verify-email';
+
 
   @override
   State<VerifyEmailScreen> createState() => _VerifyEmailScreenState();

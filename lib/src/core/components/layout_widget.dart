@@ -1,10 +1,12 @@
-import 'package:al_barq/config/route_names.dart';
 import 'package:al_barq/src/features/landing_page/screens/home_page.dart';
 import 'package:al_barq/src/features/orders/screens/cart_acreen.dart';
-import 'package:al_barq/src/features/orders/screens/checkout.dart';
+import 'package:al_barq/src/features/settings/screens/notification.dart';
 import 'package:al_barq/src/features/settings/screens/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+
+// remove extra code
+//
 
 class LayoutWidget extends StatefulWidget {
   const LayoutWidget({
@@ -13,12 +15,14 @@ class LayoutWidget extends StatefulWidget {
     required this.title,
     this.appbar,
     this.padding,
+    this.bottomAppBar,
   });
 
   final Widget body;
   final String title;
   final AppBar? appbar;
   final EdgeInsetsGeometry? padding;
+  final BottomAppBar? bottomAppBar;
 
   @override
   State<LayoutWidget> createState() => _LayoutWidgetState();
@@ -26,16 +30,16 @@ class LayoutWidget extends StatefulWidget {
 
 class _LayoutWidgetState extends State<LayoutWidget> {
   final List<String> _routes = [
-    RouteNames.homePage,
-    RouteNames.myCart,
-    RouteNames.checkout,
-    RouteNames.settings,
+    HomePage.routeName,
+    CartScreen.routeName,
+    NotificationScreen.routeName,
+    SettingScreen.routeName,
   ];
 
   @override
   Widget build(BuildContext context) {
     final currentRouteName = ModalRoute.of(context)?.settings.name;
-    var currentIndex = _routes.indexOf(currentRouteName ?? RouteNames.homePage);
+    var currentIndex = _routes.indexOf(currentRouteName ?? HomePage.routeName);
     if (currentIndex == -1) {
       currentIndex = 0;
     }
@@ -82,103 +86,71 @@ class _LayoutWidgetState extends State<LayoutWidget> {
         padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
         child: widget.body,
       ),
+      bottomNavigationBar: widget.bottomAppBar,
+    );
+  }
+}
 
-      // bottomNavigationBar: Container(
-      //   margin: EdgeInsets.symmetric(horizontal: 6, vertical: 10),
-      //   decoration: BoxDecoration(
-      //     color: Colors.black87,
-      //     borderRadius: BorderRadius.circular(16),
-      //     // topLeft: Radius.circular(16),
-      //     // topRight: Radius.circular(16),
-      //     // ),
-      //   ),
-      //   child: BottomNavigationBar(
-      //     currentIndex: currentIndex,
-      //     onTap: (index) {
-      //       final targetRoute = _routes[index];
-      //       if (targetRoute != currentRouteName) {
-      //         Navigator.pushReplacementNamed(context, targetRoute);
-      //       }
-      //     },
-      //     backgroundColor: Colors.transparent,
-      //     elevation: 2,
-      //     type: BottomNavigationBarType.fixed,
-      //     showSelectedLabels: false,
-      //     showUnselectedLabels: false,
-      //     items: [
-      //       _buildNavItem(AssetString.home, "Home", 0, currentIndex),
-      //       _buildNavItem(AssetString.cart, "Cart", 1, currentIndex),
-      //       _buildNavItem(
-      //         AssetString.notification,
-      //         "Notifications",
-      //         2,
-      //         currentIndex,
-      //       ),
-      //       _buildNavItem(AssetString.settings, "Settings", 3, currentIndex),
-      //     ],
-      //   ),
-      // ),
+class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
+  const AppBarWidget({super.key, required this.title});
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      foregroundColor: Colors.grey.shade50,
+      centerTitle: true,
+      leadingWidth: 50,
+      leading: GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: CircleAvatar(
+            radius: 12,
+            backgroundColor: Colors.grey.shade300,
+            child: const Icon(
+              Icons.arrow_back_ios_new_outlined,
+              size: 14,
+              color: Colors.black87,
+            ),
+          ),
+        ),
+      ),
+      automaticallyImplyLeading: false,
+      backgroundColor: Colors.grey.shade100,
+      elevation: 0,
+      title: Text(
+        title,
+        style: const TextStyle(
+          color: Colors.black87,
+          fontWeight: FontWeight.w600,
+          fontSize: 18,
+        ),
+      ),
     );
   }
 
-  // BottomNavigationBarItem _buildNavItem(
-  //   String image,
-  //   String label,
-  //   int index,
-  //   int currentIndex,
-  // ) {
-  //   final bool isSelected = currentIndex == index;
-
-  //   return BottomNavigationBarItem(
-  //     label: "",
-  //     icon: Flexible(
-  //       child: Container(
-  //         padding: const EdgeInsets.all(6),
-  //         decoration: BoxDecoration(
-  //           color: isSelected ? MyColors.primaryColor : Colors.transparent,
-  //           borderRadius: BorderRadius.circular(6),
-  //         ),
-  //         child: Row(
-  //           mainAxisSize: MainAxisSize.min,
-  //           children: [
-  //             SvgPicture.asset(
-  //               image,
-  //               // color: Colors.white,
-  //               colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
-  //             ),
-  //             if (isSelected) ...[
-  //               const SizedBox(width: 2),
-  //               Text(
-  //                 label,
-  //                 style: const TextStyle(
-  //                   color: Colors.white,
-  //                   fontSize: 12,
-  //                   fontWeight: FontWeight.w600,
-  //                 ),
-  //               ),
-  //             ],
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
-class CustomLayout extends StatefulWidget {
-  const CustomLayout({super.key});
+class Navbar extends StatefulWidget {
+  const Navbar({super.key});
+  static const routeName = '/navbar';
 
   @override
-  State<CustomLayout> createState() => _CustomLayoutState();
+  State<Navbar> createState() => _NavbarState();
 }
 
-class _CustomLayoutState extends State<CustomLayout> {
+class _NavbarState extends State<Navbar> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
     HomePage(),
     CartScreen(),
-    CheckoutScreen(),
+    NotificationScreen(),
     SettingScreen(),
   ];
 
@@ -187,7 +159,7 @@ class _CustomLayoutState extends State<CustomLayout> {
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.grey.shade100,
-      body: _screens[_selectedIndex],
+      body: IndexedStack(index: _selectedIndex, children: _screens),
       bottomNavigationBar: Container(
         margin: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
         decoration: BoxDecoration(

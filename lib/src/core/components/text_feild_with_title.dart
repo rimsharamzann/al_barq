@@ -9,11 +9,15 @@ class TextFeildWithTitle extends StatelessWidget {
     required this.controller,
     this.obsecureText,
     this.sufix,
+    this.maxlines,
+    this.height,
   });
   final String title;
   final String label;
   final bool? obsecureText;
   final Widget? sufix;
+  final int? maxlines;
+  final double? height;
 
   final TextEditingController controller;
 
@@ -32,6 +36,8 @@ class TextFeildWithTitle extends StatelessWidget {
         ),
         SizedBox(height: 10),
         CustomTextField(
+          height: height ?? 55,
+          maxLines: maxlines ?? 1,
           label: label,
           controller: controller,
           obsecureText: obsecureText ?? false,

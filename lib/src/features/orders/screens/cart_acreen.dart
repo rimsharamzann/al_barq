@@ -3,12 +3,14 @@ import 'package:al_barq/src/core/components/custom_container.dart';
 import 'package:al_barq/src/core/components/layout_widget.dart';
 import 'package:al_barq/src/core/constants/assets_strings.dart';
 import 'package:al_barq/src/core/constants/my_colors.dart';
+import 'package:al_barq/src/features/orders/screens/order_details.dart';
 import 'package:al_barq/src/features/products/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
+  static const routeName = '/cart-screen';
 
   @override
   State<CartScreen> createState() => _CartScreenState();
@@ -22,6 +24,7 @@ class _CartScreenState extends State<CartScreen> {
       image: AssetString.inverter,
       rating: 4,
       price: 'RS 8000',
+      id: '1',
     ),
     ProductModel(
       category: 'BATTERIES',
@@ -29,6 +32,7 @@ class _CartScreenState extends State<CartScreen> {
       image: AssetString.battery,
       rating: 5,
       price: 'RS 12000',
+      id: '2',
     ),
     ProductModel(
       category: 'WIRES',
@@ -36,6 +40,7 @@ class _CartScreenState extends State<CartScreen> {
       image: AssetString.battery1,
       rating: 3.5,
       price: 'RS 2000',
+      id: '3',
     ),
   ];
 
@@ -89,7 +94,15 @@ class _CartScreenState extends State<CartScreen> {
                 Expanded(child: SizedBox()),
                 Expanded(
                   flex: 2,
-                  child: ButtonWidget(text: 'Check out', onPress: () {}),
+                  child: CustomElevatedButton(
+                    text: 'Check out',
+                    onPress: () {
+                      Navigator.pushNamed(
+                        context,
+                        OrderDetailsScreen.routeName,
+                      );
+                    },
+                  ),
                 ),
               ],
             ),

@@ -21,139 +21,126 @@ class _ProductDetailsState extends State<ProductDetails> {
     AssetString.inverter,
   ];
 
-  bool showDescription = false;
-  bool showHighlights = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Stack(
+      // backgroundColor: Colors.green,
+      body: Column(
         children: [
-          SizedBox(
-            height: context.height / 3,
-            child: PageView.builder(
-              controller: _pageController,
-              itemCount: banners.length,
-              itemBuilder: (context, index) {
-                return Image.asset(
-                  banners[index],
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: _iconWidget(
-                      Icons.arrow_back_ios_outlined,
-                      Colors.black87,
+          Stack(
+            children: [
+              SizedBox(
+                height: context.height / 2.6,
+                child: PageView.builder(
+                  controller: _pageController,
+                  itemCount: banners.length,
+                  itemBuilder: (context, index) {
+                    return Image.asset(
+                      banners[index],
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                    );
+                  },
+                ),
+              ),
+
+              /// Top Buttons
+              Positioned(
+                top: 40,
+                left: 10,
+                right: 10,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: _iconWidget(
+                        Icons.arrow_back_ios_outlined,
+                        Colors.black87,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 16,
+                          backgroundColor: Colors.white,
+                          child: SvgPicture.asset(
+                            AssetString.wishlist,
+                            height: 18,
+                            width: 18,
+                            colorFilter: const ColorFilter.mode(
+                              Colors.red,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        CircleAvatar(
+                          radius: 16,
+                          backgroundColor: Colors.white,
+                          child: SvgPicture.asset(
+                            AssetString.export,
+                            height: 18,
+                            width: 18,
+                            colorFilter: const ColorFilter.mode(
+                              Colors.black87,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+              /// Page Indicator
+              Positioned(
+                bottom: 10,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: SmoothPageIndicator(
+                    controller: _pageController,
+                    count: banners.length,
+                    effect: ExpandingDotsEffect(
+                      activeDotColor: MyColors.primaryColor,
+                      dotColor: Colors.grey.shade400,
+                      dotHeight: 8,
+                      dotWidth: 8,
+                      expansionFactor: 3,
                     ),
                   ),
-
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 16,
-                        backgroundColor: Colors.white,
-                        child: SvgPicture.asset(
-                          AssetString.wishlist,
-                          height: 18,
-                          width: 18,
-                          colorFilter: const ColorFilter.mode(
-                            Colors.red,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      CircleAvatar(
-                        radius: 16,
-                        backgroundColor: Colors.white,
-                        child: SvgPicture.asset(
-                          AssetString.export,
-                          height: 18,
-                          width: 18,
-                          colorFilter: const ColorFilter.mode(
-                            Colors.black87,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          // Positioned(
-          //   top: -50,
-          //   left: 0,
-          //   right: 0,
-          Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 350),
-              child: Center(
-                child: SmoothPageIndicator(
-                  controller: _pageController,
-                  count: banners.length,
-                  effect: ExpandingDotsEffect(
-                    activeDotColor: MyColors.primaryColor,
-                    dotColor: Colors.grey.shade400,
-                    dotHeight: 8,
-                    dotWidth: 8,
-                    expansionFactor: 3,
-                  ),
                 ),
               ),
-            ),
+            ],
           ),
 
-          DraggableScrollableSheet(
-            initialChildSize: 0.7,
-            minChildSize: 0.3,
-            maxChildSize: 0.9,
-            builder: (context, scrollController) {
-              return Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 0,
-                  horizontal: 16,
-                ),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-                  boxShadow: [BoxShadow(blurRadius: 8, color: Colors.black26)],
-                ),
-                child: ListView(
-                  controller: scrollController,
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                boxShadow: [BoxShadow(blurRadius: 8, color: Colors.black26)],
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "Solar Panel Kit",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 22,
                         color: Colors.black87,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-
                     const SizedBox(height: 16),
 
+                    /// Info Row
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      spacing: 10,
                       children: [
                         _infoBox(
                           "4.8",
@@ -161,30 +148,31 @@ class _ProductDetailsState extends State<ProductDetails> {
                           Icons.star,
                           MyColors.primaryColor,
                         ),
+                        const SizedBox(width: 10),
                         _infoBox(
-                          "90%",
-                          '',
+                          "",
+                          'Likes',
                           Icons.thumb_up_off_alt,
                           Colors.grey,
                         ),
+                        const SizedBox(width: 10),
                         _infoBox("10", '', Icons.message_rounded, Colors.grey),
                       ],
                     ),
-                    const SizedBox(height: 10),
 
+                    const SizedBox(height: 10),
                     Text(
-                      'Rs 25000',
-                      style: TextStyle(
+                      'Rs 25,000',
+                      style: const TextStyle(
                         fontSize: 20,
                         color: MyColors.primaryColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 10),
-
                     Text(
                       'High-efficiency monocrystalline solar panel for residential use with 25-year warranty.',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black54,
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
@@ -199,24 +187,25 @@ class _ProductDetailsState extends State<ProductDetails> {
                         style: _style(),
                       ),
                     ]),
-                    _expansionTile('HighLights', [
+
+                    _expansionTile('Highlights', [
                       ListTile(
-                        leading: Icon(Icons.bolt),
+                        leading: const Icon(Icons.bolt),
                         title: Text("High efficiency cells", style: _style()),
                       ),
                       ListTile(
-                        leading: Icon(Icons.build),
+                        leading: const Icon(Icons.build),
                         title: Text("Easy installation", style: _style()),
                       ),
                       ListTile(
-                        leading: Icon(Icons.shield),
+                        leading: const Icon(Icons.shield),
                         title: Text("10-year warranty", style: _style()),
                       ),
                     ]),
                   ],
                 ),
-              );
-            },
+              ),
+            ),
           ),
         ],
       ),
@@ -239,23 +228,25 @@ class _ProductDetailsState extends State<ProductDetails> {
       shape: const RoundedRectangleBorder(),
       title: Text(
         title,
-        style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black87),
+        style: const TextStyle(
+          fontWeight: FontWeight.w600,
+          color: Colors.black87,
+        ),
       ),
-      trailing: Row(
+      trailing: const Row(
         mainAxisSize: MainAxisSize.min,
-        children: const [
+        children: [
           Text('More', style: TextStyle(color: Colors.black54, fontSize: 14)),
           SizedBox(width: 6),
           Icon(Icons.arrow_drop_down_sharp, size: 20),
         ],
       ),
-
       children: children,
     );
   }
 
   TextStyle _style() {
-    return TextStyle(
+    return const TextStyle(
       color: Colors.black87,
       fontSize: 12,
       fontWeight: FontWeight.w300,

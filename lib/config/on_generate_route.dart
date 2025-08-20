@@ -1,4 +1,3 @@
-import 'package:al_barq/config/route_names.dart';
 import 'package:al_barq/src/core/components/layout_widget.dart';
 import 'package:al_barq/src/features/about_us/screens/about_us_page.dart';
 import 'package:al_barq/src/features/auth/screens/login_screen.dart';
@@ -11,11 +10,12 @@ import 'package:al_barq/src/features/orders/screens/checkout.dart';
 import 'package:al_barq/src/features/orders/screens/order_details.dart';
 import 'package:al_barq/src/features/orders/screens/order_review.dart';
 import 'package:al_barq/src/features/orders/screens/order_screen.dart';
+import 'package:al_barq/src/features/orders/screens/review_order.dart';
 import 'package:al_barq/src/features/products/screens/products_screen.dart';
 import 'package:al_barq/src/features/settings/screens/my_wishlist_screen.dart';
 import 'package:al_barq/src/features/settings/screens/notification.dart';
 import 'package:al_barq/src/features/settings/screens/settings.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide NavigationBar;
 
 import '../src/features/orders/screens/billing_info.dart';
 import '../src/features/settings/screens/profile_screen.dart';
@@ -25,61 +25,103 @@ class RouteGenerator {
     Widget page;
 
     switch (settings.name) {
-      case RouteNames.homePage:
-        page = const HomePage();
-        break;
-      case RouteNames.splash:
-        page = const SplashScreen();
-        break;
-      case RouteNames.signup:
-        page = const SignUpScreen();
-        break;
-      case RouteNames.login:
-        page = LoginScreen();
-        break;
-      case RouteNames.productScreen:
-        page = const ProductScreen();
-        break;
-      case RouteNames.orderScreen:
-        page = const OrderScreen();
-        break;
-      case RouteNames.aboutUs:
-        page = const AboutUsPage();
-        break;
-      case RouteNames.contactUs:
-        page = const ContactUsScreen();
-        break;
-      case RouteNames.settings:
-        page = const SettingScreen();
-        break;
-      case RouteNames.wishList:
-        page = const MyWishList();
-        break;
-      case RouteNames.orderDetails:
-        page = const OrderDetailsScreen();
-        break;
-      case RouteNames.orderReview:
-        page = const OrderReviewSCreen();
-        break;
-      case RouteNames.notification:
-        page = const NotificationScreen();
-        break;
-      case RouteNames.myCart:
-        page = const CartScreen();
-        break;
-      case RouteNames.profileScreen:
-        page = const ProfileScreen();
-        break;
-      case RouteNames.checkout:
-        page = const CheckoutScreen();
-        break;
-      case RouteNames.billingInfo:
-        page = const BillingInformation();
-        break;
-      case RouteNames.navbar:
+      case HomePage.routeName:
         return MaterialPageRoute(
           settings: settings,
-          builder: (context) => const CustomLayout(),
+          builder: (context) => const HomePage(),
+        );
+      case SignUpScreen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const SignUpScreen(),
+        );
+      case SplashScreen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const SplashScreen(),
+        );
+      case LoginScreen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const LoginScreen(),
+        );
+
+      case ProductScreen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const ProductScreen(),
+        );
+      case AboutUsPage.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const AboutUsPage(),
+        );
+      case ContactUsScreen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const ContactUsScreen(),
+        );
+
+      case OrderScreen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const OrderScreen(),
+        );
+      case OrderDetailsScreen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const OrderDetailsScreen(),
+        );
+      case OrderReviewSCreen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const OrderReviewSCreen(),
+        );
+      case MyWishList.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const MyWishList(),
+        );
+      case SettingScreen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const SettingScreen(),
+        );
+      case NotificationScreen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const NotificationScreen(),
+        );
+      case CartScreen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const CartScreen(),
+        );
+      case ProfileScreen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const ProfileScreen(),
+        );
+      case ReviewOrderScreen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const ReviewOrderScreen(),
+        );
+      case BillingInformation.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const BillingInformation(),
+        );
+      case CheckoutScreen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const CheckoutScreen(),
+        );
+
+      case Navbar.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const Navbar(),
         );
 
       default:

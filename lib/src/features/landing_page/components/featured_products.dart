@@ -1,4 +1,3 @@
-
 import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +9,7 @@ import '../../products/models/product_model.dart' show ProductModel;
 class FeaturedProducts extends StatelessWidget {
   final List<ProductModel> products = [
     ProductModel(
+      id: '',
       image: AssetString.solarPanel,
       title: "Premium 500W Solar Panel",
       category: "Panels",
@@ -17,6 +17,7 @@ class FeaturedProducts extends StatelessWidget {
       rating: 4.8,
     ),
     ProductModel(
+      id: '',
       image: AssetString.solarPanel,
       title: "Premium 500W Solar Panel",
       category: "Panels",
@@ -24,6 +25,7 @@ class FeaturedProducts extends StatelessWidget {
       rating: 4.8,
     ),
     ProductModel(
+      id: '',
       image: AssetString.solarPanel,
       title: "Premium 500W Solar Panel",
       category: "Panels",
@@ -89,8 +91,7 @@ class FeaturedProducts extends StatelessWidget {
                   width: context.width / 3.5,
 
                   product: product,
-                  onAddToCart: () {
-                  },
+                  onAddToCart: () {},
                 );
               },
             ),

@@ -1,13 +1,14 @@
-import 'package:al_barq/config/route_names.dart';
 import 'package:al_barq/src/core/components/buttons.dart';
 import 'package:al_barq/src/core/components/layout_widget.dart';
 import 'package:al_barq/src/core/constants/assets_strings.dart';
+import 'package:al_barq/src/features/landing_page/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/components/text_feild_with_title.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+  static const routeName = '/profile';
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -79,10 +80,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           SizedBox(height: 10),
 
-          ButtonWidget(
+          CustomElevatedButton(
             text: 'Save',
             onPress: () {
-              Navigator.pushNamed(context, RouteNames.homePage);
+              Navigator.pushNamed(context, HomePage.routeName);
             },
           ),
           SizedBox(height: 10),

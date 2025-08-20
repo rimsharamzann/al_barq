@@ -1,4 +1,5 @@
-import 'package:al_barq/src/core/constants/assets_strings.dart' show AssetString;
+import 'package:al_barq/src/core/constants/assets_strings.dart'
+    show AssetString;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,6 +10,8 @@ import '../../../core/constants/my_colors.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
+     static const routeName = '/sign-up';
+
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -176,7 +179,7 @@ class _SignUpDataState extends State<SignUpData> {
         const SizedBox(height: 10),
 
         // Button
-        ButtonWidget(text: 'Register', onPress: () {}),
+        CustomElevatedButton(text: 'Register', onPress: () {}),
         const SizedBox(height: 10),
 
         Center(

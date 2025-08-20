@@ -1,7 +1,8 @@
-import 'package:al_barq/config/route_names.dart';
 import 'package:al_barq/src/core/components/buttons.dart';
-import 'package:al_barq/src/core/constants/assets_strings.dart' show AssetString;
+import 'package:al_barq/src/core/constants/assets_strings.dart'
+    show AssetString;
 import 'package:al_barq/src/features/auth/screens/sign_up_screen.dart';
+import 'package:al_barq/src/features/landing_page/screens/home_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,6 +12,7 @@ import '../../../core/constants/my_colors.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
+  static const routeName = '/login';
 
   @override
   Widget build(BuildContext context) {
@@ -166,10 +168,10 @@ class _LoginDataState extends State<LoginData> {
         ),
 
         const SizedBox(height: 10),
-        ButtonWidget(
+        CustomElevatedButton(
           text: 'Login',
           onPress: () {
-            Navigator.pushNamed(context, RouteNames.homePage);
+            Navigator.pushNamed(context, HomePage.routeName);
           },
         ),
         SizedBox(height: 10),

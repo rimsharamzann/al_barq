@@ -11,10 +11,10 @@ class DiscoverSolarDreams extends StatelessWidget {
       image: AssetString.solarPanel,
       category: '',
       rating: 0,
-      price: '',
+      price: '', id: '',
     ),
     ProductModel(
-      title: "Inverters",
+      title: "Inverters",id: '',
       image: AssetString.solarPanel,
       category: '',
       rating: 0,
@@ -23,11 +23,11 @@ class DiscoverSolarDreams extends StatelessWidget {
     ProductModel(
       title: "Solar Kit",
       image: AssetString.solarPanel,
-      category: '',
+      category: '',id: '',
       rating: 0,
       price: '',
     ),
-    ProductModel(
+    ProductModel(id: '',
       title: "Solar Grid Kit",
       image: AssetString.solarPanel,
       category: '',
@@ -35,13 +35,14 @@ class DiscoverSolarDreams extends StatelessWidget {
       price: '',
     ),
     ProductModel(
+       id: '',
       title: "Wires",
       image: AssetString.solarPanel,
       category: '',
       rating: 0,
       price: '',
     ),
-    ProductModel(
+    ProductModel(id: '',
       title: "Solar Stand",
       image: AssetString.solarPanel,
       category: '',

@@ -12,6 +12,8 @@ mixin AssetString {
   static const solarPanel = 'assets/images/solar-panel.png';
   static const bgImage = 'assets/images/bg-img.png';
   static const inverter = 'assets/images/inverter.png';
+  static const albarq = 'assets/images/Barq 3 1.png';
+
   static const appbarbg = 'assets/images/appbar-bg.png';
 
   // SVG

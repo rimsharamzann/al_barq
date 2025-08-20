@@ -7,6 +7,7 @@ class OrderModel {
   final String category;
   final String image;
   final double price;
+  final DateTime date;
   int quantity;
   OrderModel({
     required this.id,
@@ -14,6 +15,7 @@ class OrderModel {
     required this.category,
     required this.image,
     required this.price,
+    required this.date,
     required this.quantity,
   });
 
@@ -23,6 +25,7 @@ class OrderModel {
     String? category,
     String? image,
     double? price,
+    DateTime? date,
     int? quantity,
   }) {
     return OrderModel(
@@ -31,6 +34,7 @@ class OrderModel {
       category: category ?? this.category,
       image: image ?? this.image,
       price: price ?? this.price,
+      date: date ?? this.date,
       quantity: quantity ?? this.quantity,
     );
   }
@@ -42,6 +46,7 @@ class OrderModel {
       'category': category,
       'image': image,
       'price': price,
+      'date': date.millisecondsSinceEpoch,
       'quantity': quantity,
     };
   }
@@ -53,6 +58,7 @@ class OrderModel {
       category: map['category'] as String,
       image: map['image'] as String,
       price: map['price'] as double,
+      date: DateTime.fromMillisecondsSinceEpoch(map['date'] as int),
       quantity: map['quantity'] as int,
     );
   }
@@ -61,4 +67,8 @@ class OrderModel {
 
   factory OrderModel.fromJson(String source) =>
       OrderModel.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  
+
+ 
 }

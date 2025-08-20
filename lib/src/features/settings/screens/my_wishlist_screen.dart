@@ -7,6 +7,8 @@ import '../../../core/constants/my_colors.dart';
 
 class MyWishList extends StatelessWidget {
   const MyWishList({super.key});
+     static const routeName = '/wish-list';
+
 
   @override
   Widget build(BuildContext context) {
