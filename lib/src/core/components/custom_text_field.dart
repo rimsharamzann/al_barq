@@ -57,7 +57,7 @@ class CustomTextField extends StatelessWidget {
           decoration: Constants.inputDecoration(
             label,
             suffixIcon,
-            Colors.grey.shade300,
+            Colors.grey.shade200,
             prefixIcon,
           ),
           validator: validator,

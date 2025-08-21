@@ -1,9 +1,10 @@
+import 'package:al_barq/config/theme_data.dart';
 import 'package:al_barq/src/core/components/buttons.dart';
 import 'package:al_barq/src/core/components/custom_container.dart';
 import 'package:al_barq/src/core/components/layout_widget.dart';
 import 'package:al_barq/src/core/constants/assets_strings.dart';
 import 'package:al_barq/src/core/constants/my_colors.dart';
-import 'package:al_barq/src/features/orders/screens/order_details.dart';
+import 'package:al_barq/src/features/orders/screens/checkout.dart';
 import 'package:al_barq/src/features/products/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -20,35 +21,40 @@ class _CartScreenState extends State<CartScreen> {
   final List<ProductModel> products = [
     ProductModel(
       category: 'PANELS',
-      title: 'Solar Inverter',
+      name: 'Solar Inverter',
       image: AssetString.inverter,
       rating: 4,
-      price: 'RS 8000',
+      price: 8000,
       id: '1',
+      description: '',
     ),
     ProductModel(
+      description: '',
       category: 'BATTERIES',
-      title: 'Lithium Battery',
+      name: 'Lithium Battery',
       image: AssetString.battery,
       rating: 5,
-      price: 'RS 12000',
+      price: 8000,
       id: '2',
     ),
     ProductModel(
       category: 'WIRES',
-      title: 'Copper Wire',
+      name: 'Copper Wire',
       image: AssetString.battery1,
       rating: 3.5,
-      price: 'RS 2000',
+      description: '',
+      price: 8000,
       id: '3',
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return LayoutWidget(
-      title: 'My cart',
-      body: Column(
+    return Scaffold(
+      appBar: AppBarWidget(title: 'Cart'),
+      body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: myPadding / 2),
+
         children: [
           ListView.builder(
             shrinkWrap: true,
@@ -97,10 +103,7 @@ class _CartScreenState extends State<CartScreen> {
                   child: CustomElevatedButton(
                     text: 'Check out',
                     onPress: () {
-                      Navigator.pushNamed(
-                        context,
-                        OrderDetailsScreen.routeName,
-                      );
+                      Navigator.pushNamed(context, CheckoutScreen.routeName);
                     },
                   ),
                 ),
@@ -143,7 +146,7 @@ class MyCartCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      productModel.title,
+                      productModel.name,
                       style: TextStyle(
                         color: Colors.black87,
                         fontSize: 16,
@@ -188,7 +191,7 @@ class MyCartCard extends StatelessWidget {
                   children: [
                     QuantityIncrement(),
                     Text(
-                      productModel.price,
+                      productModel.price.toString(),
                       // 'RS 25000',
                       style: const TextStyle(
                         color: MyColors.primaryColor,

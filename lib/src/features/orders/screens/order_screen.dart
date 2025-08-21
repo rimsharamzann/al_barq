@@ -3,12 +3,16 @@ import 'package:al_barq/src/core/components/custom_container.dart';
 import 'package:al_barq/src/core/components/layout_widget.dart';
 import 'package:al_barq/src/core/constants/assets_strings.dart';
 import 'package:al_barq/src/core/extensions/context_extensions.dart';
+import 'package:al_barq/src/features/orders/enums/order_status.dart';
+import 'package:al_barq/src/features/orders/models/order_model.dart';
 import 'package:al_barq/src/features/orders/screens/order_details.dart';
+import 'package:al_barq/src/features/orders/screens/order_review.dart';
 import 'package:al_barq/src/features/orders/screens/review_order.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../core/constants/my_colors.dart';
+import '../../products/models/product_model.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
@@ -36,6 +40,27 @@ class _OrderScreenState extends State<OrderScreen>
 
   @override
   Widget build(BuildContext context) {
+    final product = ProductModel(
+      id: "productId123",
+      name: "Solar Panel",
+      description: "High efficiency solar panel",
+      price: 8000,
+      image:
+          'https://www.deegesolar.co.uk/wp-content/uploads/2021/10/String_Inverter_FI.jpg',
+      category: 'PANEL',
+      rating: 4.5,
+      quantity: 4,
+    );
+
+    final order = OrderModel(
+      id: '#9876543',
+      price: product.price,
+      product: product,
+      status: OrderStatus.confirmed,
+      date: DateTime.now(),
+      quantity: 2,
+    );
+
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBarWidget(title: 'Orders'),
@@ -82,7 +107,13 @@ class _OrderScreenState extends State<OrderScreen>
               controller: controller,
               children: [
                 ListView(
-                  children: [...List.generate(3, (index) => OrderCard())],
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  children: [
+                    ...List.generate(
+                      3,
+                      (index) => OrderCard(orderModel: order),
+                    ),
+                  ],
                 ),
 
                 CustomContainer(child: Column()),
@@ -91,13 +122,21 @@ class _OrderScreenState extends State<OrderScreen>
               ],
             ),
           ),
-
-          CustomElevatedButton(
-            text: 'Review',
-            onPress: () {
-              Navigator.pushNamed(context, ReviewOrderScreen.routeName);
-            },
+          SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: CustomElevatedButton(
+              text: 'Review',
+              onPress: () {
+                Navigator.pushNamed(
+                  context,
+                  ReviewOrderScreen.routeName,
+                  // arguments: widget.orderModel.id,
+                );
+              },
+            ),
           ),
+          SizedBox(height: 20),
         ],
       ),
     );
@@ -105,7 +144,8 @@ class _OrderScreenState extends State<OrderScreen>
 }
 
 class OrderCard extends StatefulWidget {
-  const OrderCard({super.key});
+  const OrderCard({super.key, required this.orderModel});
+  final OrderModel orderModel;
 
   @override
   State<OrderCard> createState() => _OrderCardState();
@@ -114,70 +154,87 @@ class OrderCard extends StatefulWidget {
 class _OrderCardState extends State<OrderCard> {
   @override
   Widget build(BuildContext context) {
-    return CustomContainer(
-      child: Column(
-        children: [
-          _orderId(),
-          SizedBox(height: 6),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Icon(Icons.calendar_month_sharp, color: Colors.grey.shade600),
-              SizedBox(width: 6),
-              Text(
-                'June 24, 2025',
-                style: TextStyle(color: Colors.grey.shade700, fontSize: 14),
-              ),
-            ],
-          ),
-          SizedBox(height: 6),
-          _orderDetail(),
-          SizedBox(height: 10),
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          OrderDetailsScreen.routeName,
+          arguments: widget.orderModel,
+        );
+      },
+      child: CustomContainer(
+        child: Column(
+          children: [
+            _orderId(),
+            const SizedBox(height: 6),
 
-          Divider(height: 10, color: Colors.grey.shade400, thickness: 1.5),
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                flex: 2,
-                child: Text(
-                  'Rs 8000',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w600,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(Icons.calendar_month_sharp, color: Colors.grey.shade600),
+                const SizedBox(width: 6),
+                Text(
+                  _formatDate(widget.orderModel.date),
+                  style: TextStyle(color: Colors.grey.shade700, fontSize: 14),
+                ),
+              ],
+            ),
+            const SizedBox(height: 6),
+
+            _orderDetail(widget.orderModel.product),
+            const SizedBox(height: 10),
+
+            Divider(height: 10, color: Colors.grey.shade400, thickness: 1.5),
+            const SizedBox(height: 10),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    "Rs ${widget.orderModel.price.toStringAsFixed(0)}",
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-              ),
-              Expanded(child: SizedBox()),
-              Expanded(
-                flex: 2,
-                child: CustomElevatedButton(
-                  text: 'Check out',
-                  onPress: () {
-                    Navigator.pushNamed(context, OrderDetailsScreen.routeName);
-                  },
+                const Expanded(child: SizedBox()),
+                Expanded(
+                  flex: 2,
+                  child: CustomElevatedButton(
+                    text: 'Review',
+                    onPress: () {
+                      Navigator.pushNamed(
+                        context,
+                        OrderReviewSCreen.routeName,
+                        arguments: widget.orderModel,
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _orderDetail() {
+  Widget _orderDetail(ProductModel productModel) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child: Image.asset(
-            AssetString.inverter,
+          child: Image.network(
+            productModel.image,
             fit: BoxFit.cover,
             height: 100,
             width: 100,
+            errorBuilder: (_, __, ___) => const Icon(Icons.broken_image),
           ),
         ),
         const SizedBox(width: 10),
@@ -187,8 +244,7 @@ class _OrderCardState extends State<OrderCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Solar inverter 200W',
-                // productModel.title,
+                productModel.name,
                 style: const TextStyle(
                   color: Colors.black87,
                   fontSize: 16,
@@ -197,7 +253,7 @@ class _OrderCardState extends State<OrderCard> {
               ),
               const SizedBox(height: 8),
               Text(
-                'PANEL',
+                productModel.category,
                 style: const TextStyle(
                   color: MyColors.primaryColor,
                   fontSize: 12,
@@ -205,9 +261,8 @@ class _OrderCardState extends State<OrderCard> {
                 ),
               ),
               const SizedBox(height: 8),
-
               Text(
-                'Qty: 1',
+                'Qty: ${productModel.quantity ?? 1}',
                 style: const TextStyle(
                   color: Colors.grey,
                   fontSize: 14,
@@ -222,11 +277,16 @@ class _OrderCardState extends State<OrderCard> {
   }
 
   Widget _orderId() {
+    OrderStatus status = widget.orderModel.status;
+    Color statusColor = status.color;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         SvgPicture.asset(
           AssetString.order,
+          height: 20,
+          width: 20,
           fit: BoxFit.cover,
           colorFilter: const ColorFilter.mode(
             MyColors.primaryColor,
@@ -234,20 +294,20 @@ class _OrderCardState extends State<OrderCard> {
           ),
         ),
         Text(
-          'Order ID: 47754478',
-          style: TextStyle(color: MyColors.primaryColor, fontSize: 14),
+          'Order ID: ${widget.orderModel.id}',
+          style: const TextStyle(color: MyColors.primaryColor, fontSize: 14),
         ),
-        Spacer(),
+        const Spacer(),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 3),
           decoration: BoxDecoration(
-            color: Colors.deepOrange.shade50,
+            color: statusColor.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(15),
           ),
           child: Text(
-            'processing',
-            style: const TextStyle(
-              color: Colors.deepOrange,
+            status.title,
+            style: TextStyle(
+              color: statusColor,
               fontSize: 12,
               fontWeight: FontWeight.bold,
             ),
@@ -255,5 +315,9 @@ class _OrderCardState extends State<OrderCard> {
         ),
       ],
     );
+  }
+
+  String _formatDate(DateTime date) {
+    return "${date.day}-${date.month}-${date.year}";
   }
 }

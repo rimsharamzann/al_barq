@@ -1,4 +1,3 @@
-import 'package:al_barq/config/responsive_widget.dart';
 import 'package:al_barq/src/core/constants/my_colors.dart' show MyColors;
 import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +64,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final buttonHeight =
-        height ?? (ResponsiveWidget.isSmallScreen(context) ? 40 : 46);
+        height ?? 40 ;
 
     final radius = borderRadius ?? BorderRadius.circular(30);
 
@@ -106,7 +105,7 @@ class CustomButton extends StatelessWidget {
                     color: Colors.white,
                     fontSize:
                         fontSize ??
-                        (ResponsiveWidget.isSmallScreen(context) ? 12 : 16),
+                        12 ,
                     fontWeight: fontWeight ?? FontWeight.w700,
                   ),
                 ),

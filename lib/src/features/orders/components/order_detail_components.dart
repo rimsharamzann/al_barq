@@ -1,13 +1,14 @@
 import 'package:al_barq/src/core/components/custom_container.dart';
 import 'package:al_barq/src/core/constants/my_colors.dart';
 import 'package:al_barq/src/core/extensions/context_extensions.dart';
-import 'package:al_barq/src/features/products/models/product_model.dart';
+import 'package:al_barq/src/features/orders/models/order_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/assets_strings.dart';
 
 class OrderDetailCard extends StatelessWidget {
-  const OrderDetailCard({super.key});
+  const OrderDetailCard({super.key, required this.orderModel});
+  final OrderModel orderModel;
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +37,8 @@ class OrderDetailCard extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 6),
-              // TODO : actual order Id
               Text(
-                '#09865432',
+                orderModel.id,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 14,
@@ -47,7 +47,7 @@ class OrderDetailCard extends StatelessWidget {
               ),
               SizedBox(height: 6),
               Text(
-                'Tuesday June 25, 2025',
+                orderModel.date.toString(),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 14,
@@ -74,8 +74,8 @@ class OrderDetailCard extends StatelessWidget {
 }
 
 class OrderDetails extends StatelessWidget {
-  const OrderDetails({super.key, required this.productModel});
-  final ProductModel productModel;
+  const OrderDetails({super.key, required this.orderModel});
+  final OrderModel orderModel;
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +93,7 @@ class OrderDetails extends StatelessWidget {
           ),
           SizedBox(height: 6),
           Text(
-            '1 item',
+            orderModel.quantity.toString(),
             style: TextStyle(
               color: Colors.grey,
               fontSize: 14,
@@ -121,7 +121,7 @@ class OrderDetails extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      productModel.title,
+                      orderModel.product.name,
                       style: TextStyle(
                         color: Colors.black87,
                         fontSize: 16,
@@ -131,7 +131,7 @@ class OrderDetails extends StatelessWidget {
 
                     SizedBox(height: 10),
                     Text(
-                      productModel.category,
+                      orderModel.product.category,
                       // 'PANELS',
                       style: const TextStyle(
                         color: MyColors.primaryColor,
@@ -141,7 +141,7 @@ class OrderDetails extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'qty : 1',
+                      'qty : ${orderModel.product.quantity}',
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 14,
@@ -177,7 +177,7 @@ class OrderDetails extends StatelessWidget {
               ),
 
               Text(
-                'Rs ${productModel.price}',
+                'Rs ${orderModel.product.quantity! * orderModel.product.price}',
                 style: const TextStyle(
                   color: MyColors.primaryColor,
                   fontSize: 16,

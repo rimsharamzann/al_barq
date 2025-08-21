@@ -1,5 +1,8 @@
 mixin AssetString {
   static const authBg = 'assets/images/auth.png';
+  static const logoB = 'assets/images/Barq 2 2.png';
+  static const logoD = 'assets/images/Barq 3.png';
+
   static const solar = 'assets/images/solar.png';
   static const battery = 'assets/images/Frame 40.png';
   static const sattlite = 'assets/images/Frame 41.png';
@@ -18,6 +21,7 @@ mixin AssetString {
 
   // SVG
   static const logo = 'assets/svg/albarq.svg';
+
   static const address = 'assets/svg/address.svg';
   static const wishlist = 'assets/svg/wishlist.svg';
 
@@ -29,6 +33,10 @@ mixin AssetString {
   static const comment = 'assets/svg/comment.svg';
   static const settings = 'assets/svg/setting.svg';
   static const export = 'assets/svg/export.svg';
+     static const visibility = 'assets/svg/eye icon.svg';
+           static const visibilityOff = 'assets/svg/visibility-off.svg';
+
+
 
   static const solaricon = 'assets/svg/solar.svg';
   static const home = 'assets/svg/home.svg';

@@ -1,3 +1,4 @@
+import 'package:al_barq/config/theme_data.dart';
 import 'package:al_barq/src/core/components/layout_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -7,14 +8,17 @@ import '../../../core/constants/my_colors.dart';
 
 class MyWishList extends StatelessWidget {
   const MyWishList({super.key});
-     static const routeName = '/wish-list';
-
+  static const routeName = '/wish-list';
 
   @override
   Widget build(BuildContext context) {
-    return LayoutWidget(
-      body: Column(children: List.generate(4, (index) => WishlistCard())),
-      title: 'Wishlist',
+    return Scaffold(
+      appBar: AppBarWidget(title: 'Wishlist'),
+      body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: myPadding),
+
+        children: List.generate(4, (index) => WishlistCard()),
+      ),
     );
   }
 }

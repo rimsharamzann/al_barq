@@ -1,10 +1,15 @@
-import 'package:al_barq/src/core/components/buttons.dart';
-import 'package:al_barq/src/core/components/layout_widget.dart';
-import 'package:al_barq/src/core/constants/assets_strings.dart';
-import 'package:al_barq/src/features/landing_page/screens/home_page.dart';
-import 'package:flutter/material.dart';
+// ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../../../../config/theme_data.dart';
+import '../../../core/components/buttons.dart';
+import '../../../core/components/layout_widget.dart';
 import '../../../core/components/text_feild_with_title.dart';
+import '../../../core/constants/assets_strings.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -23,70 +28,112 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _zipCOdeController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
 
+  File? _pickedImage;
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _showImagePickerOptions() async {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return SizedBox(
+          child: SafeArea(
+            child: Wrap(
+              children: [
+                SizedBox(height: 10),
+                ListTile(
+                  leading: const Icon(Icons.camera_alt),
+                  title: const Text('Take a photo'),
+                  onTap: () async {
+                    final XFile? file = await _picker.pickImage(
+                      source: ImageSource.camera,
+                    );
+                    if (file != null) {
+                      setState(() => _pickedImage = File(file.path));
+                    }
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.photo_library),
+                  title: const Text('Choose from gallery'),
+                  onTap: () async {
+                    final XFile? file = await _picker.pickImage(
+                      source: ImageSource.gallery,
+                    );
+                    if (file != null) {
+                      setState(() => _pickedImage = File(file.path));
+                    }
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return LayoutWidget(
-      title: 'Profile',
+    return Scaffold(
+      appBar: AppBarWidget(title: 'Profile'),
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding: EdgeInsets.symmetric(horizontal: myPadding),
         children: [
-          SizedBox(height: 10),
-
+          const SizedBox(height: 10),
           _userData(),
-          SizedBox(height: 16),
-
+          const SizedBox(height: 16),
           _title('Personal Information'),
-
           TextFeildWithTitle(
             title: 'Name',
             label: 'Ayesha',
             controller: _nameController,
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           TextFeildWithTitle(
             title: 'Email',
             label: 'ayesha@gmail.com',
             controller: _emailController,
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           TextFeildWithTitle(
             title: 'Password',
             label: '********',
             controller: _passwordController,
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           TextFeildWithTitle(
             title: 'Phone Number',
             label: '09876543',
             controller: _phoneController,
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           TextFeildWithTitle(
             title: 'City',
-            label: 'Multn',
+            label: 'Multan',
             controller: _cityController,
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           TextFeildWithTitle(
             title: 'Zip Code',
             label: '8000',
             controller: _zipCOdeController,
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           TextFeildWithTitle(
             title: 'Address',
             label: '3891 Ranchview Dr. Richardson, California 62639 ',
             controller: _addressController,
           ),
-          SizedBox(height: 10),
-
+          const SizedBox(height: 10),
           CustomElevatedButton(
             text: 'Save',
             onPress: () {
-              Navigator.pushNamed(context, HomePage.routeName);
+              Navigator.pushNamed(context, '/navbar');
             },
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
         ],
       ),
     );
@@ -98,11 +145,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Center(
           child: Stack(
             children: [
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 60,
-                backgroundImage: AssetImage(AssetString.solar),
+                backgroundImage: _pickedImage != null
+                    ? FileImage(_pickedImage!)
+                    : const AssetImage(AssetString.solar) as ImageProvider,
               ),
-
               Positioned(
                 right: 0,
                 top: 0,
@@ -119,15 +167,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       size: 20,
                       color: Colors.white,
                     ),
-                    onPressed: () {},
+                    onPressed: _showImagePickerOptions,
                   ),
                 ),
               ),
             ],
           ),
         ),
-        SizedBox(height: 8),
-        Text(
+        const SizedBox(height: 8),
+        const Text(
           'Aysha Umar',
           style: TextStyle(
             fontSize: 18,
@@ -135,8 +183,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             fontWeight: FontWeight.w700,
           ),
         ),
-        SizedBox(height: 6),
-        Text(
+        const SizedBox(height: 6),
+        const Text(
           'abc@gmail.com',
           style: TextStyle(
             fontSize: 14,
@@ -144,10 +192,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             fontWeight: FontWeight.w400,
           ),
         ),
-        SizedBox(height: 6),
+        const SizedBox(height: 6),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: const [
             Icon(Icons.location_on_outlined, color: Colors.black54),
             SizedBox(width: 6),
             Text(
@@ -167,7 +215,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _title(String title) {
     return Text(
       title,
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.black87,
         fontSize: 20,
         fontWeight: FontWeight.w700,

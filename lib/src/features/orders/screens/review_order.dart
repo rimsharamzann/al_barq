@@ -1,14 +1,14 @@
+import 'package:al_barq/config/theme_data.dart';
 import 'package:al_barq/src/core/components/buttons.dart';
 import 'package:al_barq/src/core/components/custom_container.dart';
 import 'package:al_barq/src/core/components/layout_widget.dart';
 import 'package:al_barq/src/core/constants/my_colors.dart';
-import 'package:al_barq/src/features/landing_page/components/dialogs.dart';
 import 'package:al_barq/src/features/orders/components/order_items_card.dart';
-import 'package:al_barq/src/features/orders/screens/order_review.dart';
-import 'package:al_barq/src/features/settings/screens/terms-and_services.dart';
+import 'package:al_barq/src/features/settings/screens/terms_and_services.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/components/dialogs.dart';
 import '../../products/models/product_model.dart';
 import '../components/order_detail_components.dart';
 
@@ -19,50 +19,49 @@ class ReviewOrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = ProductModel(
-      title: 'Solar Panel',
+      name: 'Solar Panel',
       category: 'Energy',
-      price: '25000',
+      price: 5678,
       image: '',
       rating: 6,
+      description: '',
       id: '#9876543',
     );
-    return LayoutWidget(
-      title: 'Review Order',
+    return Scaffold(
+      appBar: AppBarWidget(title: 'Review Order'),
       body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: myPadding / 1.5),
+
         children: [
           DeliveryInformation(),
-          SizedBox(height: 10),
+          SizedBox(height: myPadding / 2),
           OrderItemsCard(productModel: product),
-          SizedBox(height: 10),
+          SizedBox(height: myPadding / 2),
           _instructions(),
-          SizedBox(height: 10),
+          SizedBox(height: myPadding / 2),
 
           OrderSummary(),
-          SizedBox(height: 10),
+          SizedBox(height: myPadding / 2),
           CustomElevatedButton(
             text: 'Place Order Rs 800',
             onPress: () {
-              Navigator.pushNamed(context, OrderReviewSCreen.routeName);
-              // showSuccessDialog(
-              //   context,
-              //   'Order placed successfully.',
-              //   'Order ID : 349839284 Go to the orders page and manage your status',
-              // );
+              showDialog(
+                context: context,
+                builder: (context) => SuccessDialog(
+                  title: 'Order placed successfully.',
+                  message:
+                      'Order ID : 349839284 Go to the orders page and manage your status',
+                  routeName: Navbar.routeName,
+                ),
+              );
             },
           ),
-          SizedBox(height: 10),
+          SizedBox(height: myPadding / 2),
           TermsAndConditions(),
 
-          SizedBox(height: 100),
+          SizedBox(height: myPadding * 5),
         ],
       ),
-    );
-  }
-
-  void showSuccessDialog(BuildContext context, String title, String message) {
-    showDialog(
-      context: context,
-      builder: (context) => SuccessDialog(title: title, message: message),
     );
   }
 

@@ -1,51 +1,64 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// class OrderModel {
+//   final String id;
+//   final String category;
+//   final String image;
+//   final double price;
+//   final ProductModel product;
+
+//   final OrderStatus status;
+//   final DateTime date;
+//   int quantity;
+// }
 import 'dart:convert';
+
+import 'package:al_barq/src/core/enums/enum_methods.dart';
+import 'package:al_barq/src/features/orders/enums/order_status.dart';
+import 'package:al_barq/src/features/products/models/product_model.dart';
 
 class OrderModel {
   final String id;
-  final String productName;
-  final String category;
-  final String image;
   final double price;
+  final ProductModel product;
+  final OrderStatus status;
   final DateTime date;
-  int quantity;
+  final int quantity;
+
   OrderModel({
     required this.id,
-    required this.productName,
-    required this.category,
-    required this.image,
     required this.price,
+    required this.product,
+    required this.status,
     required this.date,
     required this.quantity,
   });
 
   OrderModel copyWith({
     String? id,
-    String? productName,
-    String? category,
-    String? image,
+    
     double? price,
+    ProductModel? product,
+    OrderStatus? status,
     DateTime? date,
     int? quantity,
   }) {
     return OrderModel(
       id: id ?? this.id,
-      productName: productName ?? this.productName,
-      category: category ?? this.category,
-      image: image ?? this.image,
+      
       price: price ?? this.price,
+      product: product ?? this.product,
+      status: status ?? this.status,
       date: date ?? this.date,
       quantity: quantity ?? this.quantity,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+    return {
       'id': id,
-      'productName': productName,
-      'category': category,
-      'image': image,
+     
       'price': price,
+      'product': product.toMap(),
+      'status': enumToString(status),
       'date': date.millisecondsSinceEpoch,
       'quantity': quantity,
     };
@@ -53,22 +66,19 @@ class OrderModel {
 
   factory OrderModel.fromMap(Map<String, dynamic> map) {
     return OrderModel(
-      id: map['id'] as String,
-      productName: map['productName'] as String,
-      category: map['category'] as String,
-      image: map['image'] as String,
-      price: map['price'] as double,
-      date: DateTime.fromMillisecondsSinceEpoch(map['date'] as int),
-      quantity: map['quantity'] as int,
+      id: map['id'] ?? '',
+   
+      price: (map['price'] ?? 0).toDouble(),
+      product: ProductModel.fromMap(map['product']),
+      status:
+          enumFromString(map['status'], OrderStatus.values) ?? OrderStatus.all,
+      date: DateTime.fromMillisecondsSinceEpoch(map['date']),
+      quantity: map['quantity'] ?? 0,
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory OrderModel.fromJson(String source) =>
-      OrderModel.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  
-
- 
+      OrderModel.fromMap(json.decode(source));
 }

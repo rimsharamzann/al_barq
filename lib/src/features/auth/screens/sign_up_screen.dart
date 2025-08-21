@@ -1,5 +1,6 @@
 import 'package:al_barq/src/core/constants/assets_strings.dart'
     show AssetString;
+import 'package:al_barq/src/core/constants/constants.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,8 +11,7 @@ import '../../../core/constants/my_colors.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
-     static const routeName = '/sign-up';
-
+  static const routeName = '/sign-up';
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -46,9 +46,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
           /// Scrollable Bottom Sheet
           DraggableScrollableSheet(
-            initialChildSize: 0.65,
-            minChildSize: 0.55,
-            maxChildSize: 0.95,
+            initialChildSize: 0.87,
+            minChildSize: 0.87,
+            maxChildSize: 0.87,
             builder: (context, scrollController) {
               return Container(
                 padding: const EdgeInsets.symmetric(
@@ -87,16 +87,19 @@ class SignUpData extends StatefulWidget {
 }
 
 class _SignUpDataState extends State<SignUpData> {
-  bool _obscureText = true;
+  final bool _obscureText = true;
   bool _rememberMe = false;
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      spacing: myPadding / 2,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Title
@@ -111,7 +114,7 @@ class _SignUpDataState extends State<SignUpData> {
             ),
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: myPadding / 2),
         Center(
           child: Text(
             "Enter your details to create an account",
@@ -124,7 +127,7 @@ class _SignUpDataState extends State<SignUpData> {
           ),
         ),
 
-        const SizedBox(height: 16),
+        const SizedBox(height: myPadding),
 
         // Name
         TextFeildWithTitle(
@@ -132,7 +135,6 @@ class _SignUpDataState extends State<SignUpData> {
           controller: _nameController,
           label: 'My Name',
         ),
-        const SizedBox(height: 10),
 
         // Email
         TextFeildWithTitle(
@@ -140,25 +142,19 @@ class _SignUpDataState extends State<SignUpData> {
           controller: _emailController,
           label: 'example@gmail.com',
         ),
-        const SizedBox(height: 10),
 
         // Password
-        TextFeildWithTitle(
-          title: 'Password',
+        PasswordFeild(
           controller: _passwordController,
-          label: '********',
-          obsecureText: _obscureText,
-          sufix: IconButton(
-            icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
-            onPressed: () {
-              setState(() => _obscureText = !_obscureText);
-            },
-          ),
+          obscureText: _obscureText,
         ),
 
-        const SizedBox(height: 10),
+        PasswordFeild(
+          title: 'Confirm Password',
+          controller: _confirmPasswordController,
+          obscureText: _obscureText,
+        ),
 
-        // Checkbox
         Row(
           children: [
             Checkbox(
@@ -176,15 +172,16 @@ class _SignUpDataState extends State<SignUpData> {
           ],
         ),
 
-        const SizedBox(height: 10),
-
         // Button
         CustomElevatedButton(text: 'Register', onPress: () {}),
-        const SizedBox(height: 10),
 
         Center(
           child: Text.rich(
             TextSpan(
+              style: const TextStyle(
+                color: Colors.black87,
+                fontWeight: FontWeight.w400,
+              ),
               children: [
                 const TextSpan(text: 'Already have an account? '),
                 TextSpan(
@@ -192,6 +189,8 @@ class _SignUpDataState extends State<SignUpData> {
                   style: const TextStyle(
                     decoration: TextDecoration.underline,
                     color: MyColors.primaryColor,
+                    fontWeight: FontWeight.w400,
+
                     decorationColor: MyColors.primaryColor,
                   ),
                   recognizer: TapGestureRecognizer()
@@ -210,9 +209,6 @@ class _SignUpDataState extends State<SignUpData> {
           ),
         ),
 
-        const SizedBox(height: 10),
-
-        // OR Divider
         Row(
           children: [
             Expanded(child: Divider(color: Colors.grey, height: 10)),
@@ -230,9 +226,6 @@ class _SignUpDataState extends State<SignUpData> {
           ],
         ),
 
-        const SizedBox(height: 10),
-
-        // Google Button
         OutlinedButton.icon(
           style: OutlinedButton.styleFrom(
             minimumSize: const Size(double.infinity, 50),
@@ -250,37 +243,53 @@ class _SignUpDataState extends State<SignUpData> {
           onPressed: () {},
         ),
 
-        const SizedBox(height: 10),
+        SizedBox(height: 10),
+      ],
+    );
+  }
+}
 
-        // Already have account? -> Login
-        Center(
-          child: Text.rich(
-            TextSpan(
-              children: [
-                const TextSpan(text: 'Already have an account? '),
-                TextSpan(
-                  text: 'Login',
-                  style: const TextStyle(
-                    decoration: TextDecoration.underline,
-                    color: MyColors.primaryColor,
-                    decorationColor: MyColors.primaryColor,
-                  ),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      Navigator.pop(context);
-                    },
-                ),
-              ],
-            ),
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Colors.black87,
-              fontWeight: FontWeight.w200,
-              fontSize: 12,
-            ),
+class PasswordFeild extends StatefulWidget {
+  const PasswordFeild({
+    super.key,
+    required this.obscureText,
+    required this.controller,
+    this.title,
+  });
+  final bool obscureText;
+  final TextEditingController controller;
+  final String? title;
+
+  @override
+  State<PasswordFeild> createState() => _PasswordFeildState();
+}
+
+class _PasswordFeildState extends State<PasswordFeild> {
+  // ignore: unused_field
+  bool _obscureText = true;
+  @override
+  Widget build(BuildContext context) {
+    return TextFeildWithTitle(
+      title: widget.title ?? 'Password',
+      controller: widget.controller,
+      label: '********',
+      obsecureText: widget.obscureText,
+      sufix: GestureDetector(
+        onTap: () {
+          setState(() => _obscureText = !widget.obscureText);
+        },
+        child: CircleAvatar(
+          backgroundColor: Colors.transparent,
+          child: SvgPicture.asset(
+            widget.obscureText
+                ? AssetString.visibilityOff
+                : AssetString.visibility,
+            colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+            height: 26,
+            width: 26,
           ),
         ),
-      ],
+      ),
     );
   }
 }

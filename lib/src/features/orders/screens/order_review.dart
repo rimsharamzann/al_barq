@@ -2,42 +2,37 @@ import 'package:al_barq/src/core/components/buttons.dart';
 import 'package:al_barq/src/core/components/layout_widget.dart';
 import 'package:al_barq/src/core/constants/constants.dart';
 import 'package:al_barq/src/core/constants/my_colors.dart';
-import 'package:al_barq/src/features/products/models/product_model.dart';
+import 'package:al_barq/src/features/orders/models/order_model.dart'
+    show OrderModel;
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import '../../../core/constants/assets_strings.dart';
+import '../../../core/components/dialogs.dart';
 
 class OrderReviewSCreen extends StatefulWidget {
   const OrderReviewSCreen({super.key});
-     static const routeName = '/order-review';
-
+  static const routeName = '/order-review';
 
   @override
   State<OrderReviewSCreen> createState() => _OrderReviewSCreenState();
 }
 
 class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
-  final product = ProductModel(
-    title: 'Solar Panel',
-    category: 'Energy',
-    price: 'June 24, 2025',
-    image: '',
-    rating: 4,
-    //  decription:'High-efficiency monocrystalline solar panel for residential use with 25-year warranty.',
-    id: '#9876543',
-  );
+  double _productRating = 0;
+  double _packingQuality = 0;
+  double _deliveryRating = 0;
   final TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return LayoutWidget(
-      padding: EdgeInsets.all(0),
-      title: 'Order reviews',
+    final order = ModalRoute.of(context)!.settings.arguments as OrderModel;
+
+    return Scaffold(
+      appBar: AppBarWidget(title: 'Order reviews'),
       body: ListView(
         children: [
           Text(
             textAlign: TextAlign.center,
-            'Order ID: 47754478',
+            order.id,
             style: TextStyle(
               color: Colors.grey,
               fontSize: 16,
@@ -52,8 +47,10 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.asset(
-                    AssetString.inverter,
+                  child: Image.network(
+                    //  order.product.image,
+                    'https://www.deegesolar.co.uk/wp-content/uploads/2021/10/String_Inverter_FI.jpg',
+                    // AssetString.inverter,
                     fit: BoxFit.cover,
                     height: 90,
                     width: 90,
@@ -66,7 +63,7 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        product.title,
+                        order.product.name,
                         style: const TextStyle(
                           color: Colors.black87,
                           fontSize: 16,
@@ -75,9 +72,10 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
                       ),
                       const SizedBox(height: 4),
                       Text(
+                        order.product.description,
+
                         // maxLines: 2,
-                        // TODO Decriptiom m
-                        'High-efficiency monocrystalline solar panel for residential use with 25-year warranty.',
+                        // 'High-efficiency monocrystalline solar panel for residential use with 25-year warranty.',
                         // product.category,
                         style: TextStyle(
                           color: Colors.grey.shade700,
@@ -90,7 +88,7 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Delivered on:  ${product.price}',
+                            'Delivered on:  ${order.product.price}',
                             style: const TextStyle(
                               color: MyColors.primaryColor,
                               fontSize: 14,
@@ -121,7 +119,7 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: RatingBar(
-              initialRating: _userRating,
+              initialRating: _productRating,
               minRating: 1,
               direction: Axis.horizontal,
               allowHalfRating: true,
@@ -134,7 +132,7 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
               ),
               onRatingUpdate: (rating) {
                 setState(() {
-                  _userRating = rating;
+                  _productRating = rating;
                 });
               },
             ),
@@ -144,7 +142,7 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
-              "${product.rating} out of 5",
+              "${order.product.rating} out of 5",
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 14,
@@ -207,12 +205,28 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
           ),
           ImageRowWidget(),
           Divider(color: Colors.grey.shade400, thickness: 1.5),
-          _rating('Packing Quality'),
-          _rating('Delivery Rating'),
+          _rating('Packing Quality', (rating) {
+            setState(() {
+              _packingQuality = rating;
+            });
+          }, _packingQuality),
+          _rating('Delivery Rating', (rating) {
+            setState(() {
+              _deliveryRating = rating;
+            });
+          }, _deliveryRating),
           SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: CustomElevatedButton(text: 'Submit Reviews', onPress: () {}),
+            child: CustomElevatedButton(
+              text: 'Submit Reviews',
+              onPress: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => ReviewsDialog(),
+                );
+              },
+            ),
           ),
           SizedBox(height: 150),
         ],
@@ -220,9 +234,11 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
     );
   }
 
-  double _userRating = 0;
-
-  Widget _rating(String title) {
+  Widget _rating(
+    String title,
+    Function(double)? onRating,
+    double initialRating,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       child: Row(
@@ -237,7 +253,7 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
             ),
           ),
           RatingBar(
-            initialRating: _userRating,
+            initialRating: initialRating,
             minRating: 1,
             direction: Axis.horizontal,
             allowHalfRating: true,
@@ -248,11 +264,7 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
               half: const Icon(Icons.star_half, color: Colors.amber),
               empty: const Icon(Icons.star_border, color: Colors.amber),
             ),
-            onRatingUpdate: (rating) {
-              setState(() {
-                _userRating = rating;
-              });
-            },
+            onRatingUpdate: (rating) => onRating,
           ),
         ],
       ),
@@ -271,11 +283,9 @@ class _ImageRowWidgetState extends State<ImageRowWidget> {
   final List<String> _images = [];
 
   Widget _addImage() {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _images.add(AssetString.solar1);
-        });
+    return ImagePickerWidget(
+      onImagePicked: (file) {
+        if (file != null) {}
       },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 10),

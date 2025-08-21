@@ -1,8 +1,10 @@
 import 'package:al_barq/src/core/components/buttons.dart';
+import 'package:al_barq/src/core/components/layout_widget.dart';
 import 'package:al_barq/src/core/constants/assets_strings.dart'
     show AssetString;
+import 'package:al_barq/src/core/constants/constants.dart';
 import 'package:al_barq/src/features/auth/screens/sign_up_screen.dart';
-import 'package:al_barq/src/features/landing_page/screens/home_page.dart';
+import 'package:al_barq/src/features/auth/screens/verify_email.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -41,9 +43,9 @@ class LoginScreen extends StatelessWidget {
           ),
 
           DraggableScrollableSheet(
-            initialChildSize: 0.65,
-            minChildSize: 0.55,
-            maxChildSize: 0.95,
+            initialChildSize: 0.75,
+            minChildSize: 0.75,
+            maxChildSize: 0.75,
             builder: (context, scrollController) {
               return Container(
                 padding: const EdgeInsets.symmetric(
@@ -91,6 +93,7 @@ class _LoginDataState extends State<LoginData> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      spacing: myPadding / 2,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Center(
@@ -104,7 +107,6 @@ class _LoginDataState extends State<LoginData> {
             ),
           ),
         ),
-        const SizedBox(height: 8),
         Center(
           child: Text(
             "Enter your email and password to access your account",
@@ -116,32 +118,17 @@ class _LoginDataState extends State<LoginData> {
             ),
           ),
         ),
-        const SizedBox(height: 10),
+
         TextFeildWithTitle(
           title: 'Email',
           controller: _emailController,
           label: 'examlple@gmail.ocm',
         ),
 
-        const SizedBox(height: 10),
-        TextFeildWithTitle(
-          title: 'Password',
-          obsecureText: _obscureText,
-
+        PasswordFeild(
           controller: _passwordController,
-          label: '********',
-          sufix: IconButton(
-            icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
-            onPressed: () {
-              setState(() {
-                _obscureText = !_obscureText;
-              });
-            },
-          ),
+          obscureText: _obscureText,
         ),
-
-        const SizedBox(height: 10),
-
         Row(
           children: [
             Checkbox(
@@ -158,7 +145,9 @@ class _LoginDataState extends State<LoginData> {
             ),
             const Spacer(),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, VerifyEmailScreen.routeName);
+              },
               child: const Text(
                 "Forgot password?",
                 style: TextStyle(color: MyColors.primaryColor),
@@ -167,11 +156,10 @@ class _LoginDataState extends State<LoginData> {
           ],
         ),
 
-        const SizedBox(height: 10),
         CustomElevatedButton(
           text: 'Login',
           onPress: () {
-            Navigator.pushNamed(context, HomePage.routeName);
+            Navigator.pushNamed(context, Navbar.routeName);
           },
         ),
         SizedBox(height: 10),
@@ -179,12 +167,20 @@ class _LoginDataState extends State<LoginData> {
           child: Text.rich(
             TextSpan(
               children: [
-                TextSpan(text: 'Don\'t Have account?'),
+                TextSpan(
+                  text: 'Don\'t Have account?',
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                TextSpan(text: ' '),
                 TextSpan(
                   text: 'Create account',
                   style: TextStyle(
                     decoration: TextDecoration.underline,
                     color: MyColors.primaryColor,
+                    fontWeight: FontWeight.w400,
                     decorationColor: MyColors.primaryColor,
                   ),
                   recognizer: TapGestureRecognizer()
@@ -209,8 +205,6 @@ class _LoginDataState extends State<LoginData> {
           ),
         ),
 
-        const SizedBox(height: 10),
-
         Row(
           children: [
             Expanded(child: Divider(color: Colors.grey, height: 10)),
@@ -230,8 +224,6 @@ class _LoginDataState extends State<LoginData> {
             Expanded(child: Divider(color: Colors.grey, height: 10)),
           ],
         ),
-
-        const SizedBox(height: 10),
 
         OutlinedButton.icon(
           style: OutlinedButton.styleFrom(

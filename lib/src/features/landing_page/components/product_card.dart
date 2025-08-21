@@ -1,21 +1,12 @@
+import 'package:al_barq/src/features/products/models/product_model.dart';
 import 'package:al_barq/src/features/products/screens/product_details.dart';
 import 'package:flutter/material.dart';
 
 import 'star_rating.dart';
 
 class ProductCard extends StatefulWidget {
-  final String title;
-  final String price;
-  final double rating;
-  final String imageUrl;
-
-  const ProductCard({
-    super.key,
-    required this.title,
-    required this.price,
-    required this.rating,
-    required this.imageUrl,
-  });
+  const ProductCard({super.key, required this.productModel});
+  final ProductModel productModel;
 
   @override
   State<ProductCard> createState() => _ProductCardState();
@@ -28,9 +19,10 @@ class _ProductCardState extends State<ProductCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
+        Navigator.pushNamed(
           context,
-          MaterialPageRoute(builder: (context) => ProductDetails()),
+          arguments: widget.productModel,
+          ProductDetails.routeName,
         );
       },
       child: Container(
@@ -55,7 +47,7 @@ class _ProductCardState extends State<ProductCard> {
                     top: Radius.circular(12),
                   ),
                   child: Image.network(
-                    widget.imageUrl,
+                    widget.productModel.image,
                     height: 120,
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -74,7 +66,7 @@ class _ProductCardState extends State<ProductCard> {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Text(
-                      "PANELS",
+                      widget.productModel.category,
                       style: const TextStyle(
                         color: Colors.deepOrangeAccent,
                         fontSize: 11,
@@ -123,7 +115,7 @@ class _ProductCardState extends State<ProductCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.title,
+                    widget.productModel.name,
                     style: const TextStyle(
                       fontSize: 14,
                       color: Colors.black87,
@@ -133,10 +125,10 @@ class _ProductCardState extends State<ProductCard> {
                   const SizedBox(height: 2),
                   Row(
                     children: [
-                      StarRating(rating: widget.rating.toDouble()),
+                      StarRating(rating: widget.productModel.rating.toDouble()),
                       const SizedBox(width: 4),
                       Text(
-                        "${widget.rating}",
+                        "${widget.productModel.rating}",
                         style: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 10,
@@ -148,7 +140,7 @@ class _ProductCardState extends State<ProductCard> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        widget.price,
+                        widget.productModel.price.toString(),
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -159,6 +151,8 @@ class _ProductCardState extends State<ProductCard> {
                         width: 30,
                         height: 30,
                         child: FloatingActionButton(
+                          heroTag: null,
+
                           onPressed: () {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(

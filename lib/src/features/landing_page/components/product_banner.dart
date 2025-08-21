@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:al_barq/src/features/products/screens/product_details.dart';
+import 'package:al_barq/src/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -51,7 +51,10 @@ class _ProductBannerState extends State<ProductBanner> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10,
+        vertical: myPadding / 2,
+      ),
       child: Column(
         children: [
           SizedBox(
@@ -115,21 +118,14 @@ class _ProductBannerState extends State<ProductBanner> {
                                   alpha: 0.3,
                                 ),
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 12,
-                                  vertical: 10,
+                                  horizontal: myPadding / 1.3,
+                                  vertical: myPadding / 2,
                                 ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(6),
                                 ),
                               ),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ProductDetails(),
-                                  ),
-                                );
-                              },
+                              onPressed: () {},
                               child: const Text(
                                 "View Products",
                                 style: TextStyle(fontSize: 14),

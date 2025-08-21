@@ -1,12 +1,12 @@
-import 'package:al_barq/src/core/constants/assets_strings.dart' show AssetString;
-import 'package:al_barq/src/core/extensions/context_extensions.dart';
+import 'package:al_barq/src/core/components/layout_widget.dart';
+import 'package:al_barq/src/core/constants/assets_strings.dart'
+    show AssetString;
+import 'package:al_barq/src/core/constants/my_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
-     static const routeName = '/splash';
-
+  static const routeName = '/splash';
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -27,6 +27,12 @@ class _SplashScreenState extends State<SplashScreen>
     )..forward();
 
     animation = CurvedAnimation(parent: controller, curve: Curves.linear);
+
+    Future.delayed(const Duration(seconds: 5), () {
+      if (mounted) {
+        Navigator.pushNamed(context, Navbar.routeName);
+      }
+    });
   }
 
   @override
@@ -35,38 +41,37 @@ class _SplashScreenState extends State<SplashScreen>
     super.dispose();
   }
 
-  // Navigator.pushNamed(context, RouteNames.homePage);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ScaleTransition(
-              scale: animation,
-              child: Center(
-                child: Container(
-                  width: 160,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: SvgPicture.asset(AssetString.logo),
+      backgroundColor: Colors.red.shade100,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ScaleTransition(
+            scale: animation,
+            child: Center(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.asset(
+                  AssetString.logoD,
+                  fit: BoxFit.contain,
+                  height: 180,
+                  width: 180,
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            Text(
-              'Pakistan\'s Solar MarketPlace ',
-              style: TextStyle(color: Colors.black87),
+          ),
+          Text(
+            'Pakistan\'s Solar MarketPlace',
+            style: TextStyle(
+              color: MyColors.primaryColor,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
             ),
-            SizedBox(height: context.height / 2),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

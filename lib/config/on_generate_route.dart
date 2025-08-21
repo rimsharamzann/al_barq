@@ -3,6 +3,7 @@ import 'package:al_barq/src/features/about_us/screens/about_us_page.dart';
 import 'package:al_barq/src/features/auth/screens/login_screen.dart';
 import 'package:al_barq/src/features/auth/screens/sign_up_screen.dart';
 import 'package:al_barq/src/features/auth/screens/splash_screen.dart';
+import 'package:al_barq/src/features/auth/screens/verify_email.dart';
 import 'package:al_barq/src/features/contact_us/screens/contact_us_screen.dart';
 import 'package:al_barq/src/features/landing_page/screens/home_page.dart';
 import 'package:al_barq/src/features/orders/screens/cart_acreen.dart';
@@ -11,11 +12,12 @@ import 'package:al_barq/src/features/orders/screens/order_details.dart';
 import 'package:al_barq/src/features/orders/screens/order_review.dart';
 import 'package:al_barq/src/features/orders/screens/order_screen.dart';
 import 'package:al_barq/src/features/orders/screens/review_order.dart';
+import 'package:al_barq/src/features/products/screens/product_details.dart';
 import 'package:al_barq/src/features/products/screens/products_screen.dart';
 import 'package:al_barq/src/features/settings/screens/my_wishlist_screen.dart';
 import 'package:al_barq/src/features/settings/screens/notification.dart';
 import 'package:al_barq/src/features/settings/screens/settings.dart';
-import 'package:flutter/material.dart' hide NavigationBar;
+import 'package:flutter/material.dart' ;
 
 import '../src/features/orders/screens/billing_info.dart';
 import '../src/features/settings/screens/profile_screen.dart';
@@ -61,7 +63,11 @@ class RouteGenerator {
           settings: settings,
           builder: (context) => const ContactUsScreen(),
         );
-
+ case ProductDetails.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const ProductDetails(),
+        );
       case OrderScreen.routeName:
         return MaterialPageRoute(
           settings: settings,
@@ -116,6 +122,11 @@ class RouteGenerator {
         return MaterialPageRoute(
           settings: settings,
           builder: (context) => const CheckoutScreen(),
+        );
+      case VerifyEmailScreen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const VerifyEmailScreen(),
         );
 
       case Navbar.routeName:

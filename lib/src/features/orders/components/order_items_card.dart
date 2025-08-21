@@ -78,7 +78,7 @@ class OrderItemsCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                productModel.title,
+                productModel.name,
                 style: const TextStyle(
                   color: Colors.black87,
                   fontSize: 16,

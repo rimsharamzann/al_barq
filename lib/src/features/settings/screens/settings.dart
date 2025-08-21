@@ -1,5 +1,6 @@
 import 'package:al_barq/src/core/components/custom_container.dart';
 import 'package:al_barq/src/core/constants/assets_strings.dart';
+import 'package:al_barq/src/core/constants/constants.dart';
 import 'package:al_barq/src/features/auth/screens/login_screen.dart';
 import 'package:al_barq/src/features/contact_us/screens/contact_us_screen.dart';
 import 'package:al_barq/src/features/landing_page/screens/home_page.dart';
@@ -18,9 +19,10 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutWidget(
-      title: 'Settings',
+    return Scaffold(
+      appBar: AppBarWidget(title: 'Setting'),
       body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: myPadding),
         children: [
           CustomContainer(
             child: Column(
@@ -77,6 +79,7 @@ class SettingScreen extends StatelessWidget {
                   },
                 ),
                 SettingTile(
+                  //TODO:     Terms and Conditions
                   svgPath: AssetString.searchPerson,
                   title: 'Terms and Conditions',
                   onTap: () {
@@ -100,7 +103,6 @@ class SettingScreen extends StatelessWidget {
                   svgPath: AssetString.logout,
                   title: 'Logout',
                   onTap: () {
-                    //TODO:     logout
                     Navigator.pushNamed(context, LoginScreen.routeName);
                   },
                 ),

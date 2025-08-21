@@ -1,11 +1,13 @@
+import 'package:al_barq/src/core/components/buttons.dart';
+import 'package:al_barq/src/core/components/layout_widget.dart';
 import 'package:al_barq/src/core/constants/assets_strings.dart';
+import 'package:al_barq/src/core/constants/my_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:pinput/pinput.dart'; 
+import 'package:pinput/pinput.dart';
 
 class VerifyEmailScreen extends StatefulWidget {
   const VerifyEmailScreen({super.key});
-     static const routeName = '/verify-email';
-
+  static const routeName = '/verify-email';
 
   @override
   State<VerifyEmailScreen> createState() => _VerifyEmailScreenState();
@@ -19,10 +21,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
-      textStyle: const TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
-      ),
+      textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
       decoration: BoxDecoration(
         color: Colors.grey.shade100,
         borderRadius: BorderRadius.circular(10),
@@ -35,37 +34,26 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
       body: SafeArea(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 60),
+            child: ListView(
+              // mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                /// Logo
-                Column(
-                  children: [
-                    Image.asset(
-                     AssetString.logo, 
-                      height: 80,
+                Center(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.asset(
+                      AssetString.logoD,
+                      fit: BoxFit.contain,
+                      height: 180,
+                      width: 180,
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      "Barq",
-                      style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-                const SizedBox(height: 32),
 
-                /// Title
                 const Text(
                   "Verify your email",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 ),
                 const SizedBox(height: 8),
 
@@ -73,15 +61,12 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                 const Text(
                   "Enter code we have sent to your\ninbox example@gmail.com",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey,
-                  ),
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
                 const SizedBox(height: 32),
 
-                /// OTP Input
                 Pinput(
+                  keyboardType: TextInputType.number,
                   controller: _otpController,
                   length: 5,
                   defaultPinTheme: defaultPinTheme,
@@ -89,7 +74,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.orange, width: 2),
+                      border: Border.all(color: MyColors.mainColor, width: 2),
                     ),
                   ),
                   submittedPinTheme: defaultPinTheme,
@@ -100,29 +85,11 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
 
                 const SizedBox(height: 32),
 
-                /// Verify Button
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    onPressed: () {
-                      debugPrint("Verify with OTP: ${_otpController.text}");
-                    },
-                    child: const Text(
-                      "Verify",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
+                CustomElevatedButton(
+                  text: 'Verify',
+                  onPress: () {
+                    Navigator.pushNamed(context, Navbar.routeName);
+                  },
                 ),
               ],
             ),

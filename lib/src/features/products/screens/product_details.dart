@@ -1,12 +1,14 @@
 import 'package:al_barq/src/core/constants/assets_strings.dart';
 import 'package:al_barq/src/core/constants/my_colors.dart';
 import 'package:al_barq/src/core/extensions/context_extensions.dart';
+import 'package:al_barq/src/features/products/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ProductDetails extends StatefulWidget {
   const ProductDetails({super.key});
+  static const routeName = '/product-details';
 
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
@@ -15,14 +17,15 @@ class ProductDetails extends StatefulWidget {
 class _ProductDetailsState extends State<ProductDetails> {
   final PageController _pageController = PageController();
   final List<String> banners = [
-    AssetString.solar,
-    AssetString.authBg,
-    AssetString.solarPanel,
-    AssetString.inverter,
+    'https://media.istockphoto.com/id/2167474939/photo/two-workers-installing-solar-panel-on-roof.webp?a=1&b=1&s=612x612&w=0&k=20&c=tfn9Gl5Q_aWPvLcVrlkEXy5SOyqZXXn0KvSMxA98h8E=',
+    'https://images.unsplash.com/photo-1558449028-b53a39d100fc?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c29sYXJ8ZW58MHx8MHx8fDA%3D',
+    'https://plus.unsplash.com/premium_photo-1679917152396-4b18accacb9d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c29sYXJ8ZW58MHx8MHx8fDA%3D',
+    'https://media.istockphoto.com/id/1455358887/photo/aerial-view-of-large-electrical-power-plant-with-many-rows-of-solar-photovoltaic-panels-for.webp?a=1&b=1&s=612x612&w=0&k=20&c=8M5KzJGYmJUdolFNAxb66BeaLRmnY9lH6j4l5IlAlXY=',
   ];
 
   @override
   Widget build(BuildContext context) {
+    final product = ModalRoute.of(context)!.settings.arguments as ProductModel;
     return Scaffold(
       // backgroundColor: Colors.green,
       body: Column(
@@ -35,7 +38,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   controller: _pageController,
                   itemCount: banners.length,
                   itemBuilder: (context, index) {
-                    return Image.asset(
+                    return Image.network(
                       banners[index],
                       fit: BoxFit.cover,
                       width: double.infinity,
@@ -130,7 +133,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Solar Panel Kit",
+                      product.name,
                       style: const TextStyle(
                         fontSize: 22,
                         color: Colors.black87,
@@ -143,7 +146,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     Row(
                       children: [
                         _infoBox(
-                          "4.8",
+                          product.rating.toString(),
                           'Reviews',
                           Icons.star,
                           MyColors.primaryColor,
@@ -162,7 +165,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
                     const SizedBox(height: 10),
                     Text(
-                      'Rs 25,000',
+                      product.price.toString(),
                       style: const TextStyle(
                         fontSize: 20,
                         color: MyColors.primaryColor,
@@ -171,7 +174,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      'High-efficiency monocrystalline solar panel for residential use with 25-year warranty.',
+                      product.description,
                       style: const TextStyle(
                         color: Colors.black54,
                         fontSize: 13,

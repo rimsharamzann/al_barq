@@ -1,3 +1,4 @@
+import 'package:al_barq/config/theme_data.dart';
 import 'package:al_barq/src/core/components/layout_widget.dart';
 import 'package:al_barq/src/features/orders/screens/review_order.dart';
 import 'package:flutter/material.dart';
@@ -21,37 +22,41 @@ class _BillingInformationState extends State<BillingInformation> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutWidget(
-      padding: EdgeInsets.all(18),
-      title: 'Billing Information',
+    return Scaffold(
+      appBar: AppBarWidget(title: 'Billing Information'),
       body: ListView(
+        padding: EdgeInsets.symmetric(
+          horizontal: myPadding,
+          vertical: myPadding / 2,
+        ),
+
         children: [
           _title('Payment Information'),
-          SizedBox(height: 10),
+          SizedBox(height: myPadding / 1.3),
           TextFeildWithTitle(
             title: 'Account Holder Name',
             label: 'enter',
             controller: _nameController,
           ),
-          SizedBox(height: 10),
+          SizedBox(height: myPadding / 2),
           TextFeildWithTitle(
             title: 'Card Number',
             label: 'enter',
             controller: _cardNumberControlle,
           ),
-          SizedBox(height: 10),
+          SizedBox(height: myPadding / 2),
           TextFeildWithTitle(
             title: 'Card Expiry',
             label: 'enter',
             controller: _cardExpiryDate,
           ),
-          SizedBox(height: 10),
+          SizedBox(height: myPadding / 2),
           TextFeildWithTitle(
             title: 'CVV',
             label: 'enter',
             controller: _cvvController,
           ),
-          SizedBox(height: 16),
+          SizedBox(height: myPadding),
           CustomElevatedButton(
             text: 'Next',
             onPress: () {
