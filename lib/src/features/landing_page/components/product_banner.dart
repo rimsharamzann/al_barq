@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:al_barq/src/core/constants/constants.dart';
+import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -93,20 +94,19 @@ class _ProductBannerState extends State<ProductBanner> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Solar Products",
-                              style: TextStyle(
-                                color: Colors.white,
+                              style: context.textTheme.bodyMedium?.copyWith(
                                 fontSize: 25,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             const SizedBox(height: 4),
-                            const Text(
+                            Text(
                               "Pakistan's first solar mobile \napp",
-                              style: TextStyle(
+                              style: context.textTheme.bodyMedium?.copyWith(
                                 color: Colors.white,
-                                fontSize: 16,
                               ),
                             ),
                             const SizedBox(height: 8),
@@ -126,9 +126,11 @@ class _ProductBannerState extends State<ProductBanner> {
                                 ),
                               ),
                               onPressed: () {},
-                              child: const Text(
+                              child: Text(
                                 "View Products",
-                                style: TextStyle(fontSize: 14),
+                                style: context.textTheme.bodySmall?.copyWith(
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ],

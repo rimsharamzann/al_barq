@@ -38,19 +38,19 @@ ThemeData lightThemeData(BuildContext context) {
         fontWeight: FontWeight.w400,
       ),
       bodyLarge: TextStyle(
-        fontSize: 16,
+        fontSize: 18,
+        color: Colors.black87,
+        fontWeight: FontWeight.bold,
+      ),
+      bodyMedium: const TextStyle(
+        fontSize: 14,
         color: Colors.black87,
         fontWeight: FontWeight.w500,
       ),
-      bodyMedium: TextStyle(
+      bodySmall: TextStyle(
         fontSize: 14,
         color: Colors.black87,
-        fontWeight: FontWeight.w400,
-      ),
-      bodySmall: TextStyle(
-        fontSize: 20,
-        color: Colors.black87,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w300,
       ),
     ),
   );

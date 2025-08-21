@@ -1,6 +1,7 @@
 import 'package:al_barq/src/core/constants/assets_strings.dart'
     show AssetString;
 import 'package:al_barq/src/core/constants/constants.dart';
+import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -107,11 +108,7 @@ class _SignUpDataState extends State<SignUpData> {
           child: Text(
             "Welcome To Al-Barq",
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
+            style: context.textTheme.titleLarge,
           ),
         ),
         const SizedBox(height: myPadding / 2),
@@ -119,8 +116,7 @@ class _SignUpDataState extends State<SignUpData> {
           child: Text(
             "Enter your details to create an account",
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 16,
+            style: context.textTheme.bodyMedium?.copyWith(
               fontWeight: FontWeight.w400,
               color: Colors.black54,
             ),
@@ -165,9 +161,9 @@ class _SignUpDataState extends State<SignUpData> {
               activeColor: MyColors.primaryColor,
               checkColor: Colors.white,
             ),
-            const Text(
+            Text(
               "Remember me",
-              style: TextStyle(fontSize: 14, color: Colors.black),
+              style: context.textTheme.bodyMedium?.copyWith(fontSize: 14),
             ),
           ],
         ),
@@ -178,15 +174,16 @@ class _SignUpDataState extends State<SignUpData> {
         Center(
           child: Text.rich(
             TextSpan(
-              style: const TextStyle(
-                color: Colors.black87,
+              style: context.textTheme.bodySmall?.copyWith(
                 fontWeight: FontWeight.w400,
+                fontSize: 12,
+                color: Colors.black87,
               ),
               children: [
                 const TextSpan(text: 'Already have an account? '),
                 TextSpan(
                   text: 'Login',
-                  style: const TextStyle(
+                  style: context.textTheme.bodySmall?.copyWith(
                     decoration: TextDecoration.underline,
                     color: MyColors.primaryColor,
                     fontWeight: FontWeight.w400,
@@ -201,11 +198,6 @@ class _SignUpDataState extends State<SignUpData> {
               ],
             ),
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Colors.black87,
-              fontWeight: FontWeight.w200,
-              fontSize: 12,
-            ),
           ),
         ),
 
@@ -213,12 +205,11 @@ class _SignUpDataState extends State<SignUpData> {
           children: [
             Expanded(child: Divider(color: Colors.grey, height: 10)),
             const SizedBox(width: 6),
-            const Text(
+            Text(
               "OR",
-              style: TextStyle(
+              style: context.textTheme.bodySmall?.copyWith(
+                fontSize: 15,
                 color: Colors.black54,
-                fontSize: 16,
-                fontWeight: FontWeight.w300,
               ),
             ),
             const SizedBox(width: 6),
@@ -236,9 +227,12 @@ class _SignUpDataState extends State<SignUpData> {
             ),
           ),
           icon: SvgPicture.asset(AssetString.google, height: 20),
-          label: const Text(
+          label: Text(
             "Sign up with Google",
-            style: TextStyle(fontSize: 16, color: Colors.blue),
+            style: context.textTheme.bodyMedium?.copyWith(
+              color: Colors.blue,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           onPressed: () {},
         ),

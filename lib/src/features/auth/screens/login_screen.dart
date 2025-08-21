@@ -3,6 +3,7 @@ import 'package:al_barq/src/core/components/layout_widget.dart';
 import 'package:al_barq/src/core/constants/assets_strings.dart'
     show AssetString;
 import 'package:al_barq/src/core/constants/constants.dart';
+import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:al_barq/src/features/auth/screens/sign_up_screen.dart';
 import 'package:al_barq/src/features/auth/screens/verify_email.dart';
 import 'package:flutter/gestures.dart';
@@ -100,19 +101,14 @@ class _LoginDataState extends State<LoginData> {
           child: Text(
             "Welcome Back",
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
+            style: context.textTheme.titleLarge,
           ),
         ),
         Center(
           child: Text(
             "Enter your email and password to access your account",
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16,
+            style: context.textTheme.bodyMedium?.copyWith(
               fontWeight: FontWeight.w400,
               color: Colors.black54,
             ),
@@ -139,18 +135,20 @@ class _LoginDataState extends State<LoginData> {
               activeColor: MyColors.primaryColor,
               checkColor: Colors.white,
             ),
-            const Text(
+            Text(
               "Remember me",
-              style: TextStyle(fontSize: 14, color: Colors.black),
+              style: context.textTheme.bodyMedium?.copyWith(fontSize: 14),
             ),
             const Spacer(),
             TextButton(
               onPressed: () {
                 Navigator.pushNamed(context, VerifyEmailScreen.routeName);
               },
-              child: const Text(
+              child: Text(
                 "Forgot password?",
-                style: TextStyle(color: MyColors.primaryColor),
+                style: context.textTheme.bodyMedium?.copyWith(
+                  color: MyColors.primaryColor,
+                ),
               ),
             ),
           ],
@@ -167,20 +165,15 @@ class _LoginDataState extends State<LoginData> {
           child: Text.rich(
             TextSpan(
               children: [
-                TextSpan(
-                  text: 'Don\'t Have account?',
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
+                TextSpan(text: 'Don\'t Have account?'),
                 TextSpan(text: ' '),
                 TextSpan(
                   text: 'Create account',
-                  style: TextStyle(
+                  style: context.textTheme.bodySmall?.copyWith(
                     decoration: TextDecoration.underline,
                     color: MyColors.primaryColor,
                     fontWeight: FontWeight.w400,
+                    fontSize: 12,
                     decorationColor: MyColors.primaryColor,
                   ),
                   recognizer: TapGestureRecognizer()
@@ -197,10 +190,10 @@ class _LoginDataState extends State<LoginData> {
             ),
             textAlign: TextAlign.center,
 
-            style: TextStyle(
-              color: Colors.black87,
-              fontWeight: FontWeight.w200,
+            style: context.textTheme.bodySmall?.copyWith(
+              fontWeight: FontWeight.w400,
               fontSize: 12,
+              color: Colors.black87,
             ),
           ),
         ),
@@ -213,10 +206,9 @@ class _LoginDataState extends State<LoginData> {
             Center(
               child: Text(
                 'OR',
-                style: TextStyle(
+                style: context.textTheme.bodySmall?.copyWith(
+                  fontSize: 15,
                   color: Colors.black54,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w300,
                 ),
               ),
             ),
@@ -235,9 +227,12 @@ class _LoginDataState extends State<LoginData> {
             ),
           ),
           icon: SvgPicture.asset(AssetString.google, height: 20),
-          label: const Text(
+          label: Text(
             "Sign in with Google",
-            style: TextStyle(fontSize: 16, color: Colors.blue),
+            style: context.textTheme.bodyMedium?.copyWith(
+              color: Colors.blue,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           onPressed: () {},
         ),

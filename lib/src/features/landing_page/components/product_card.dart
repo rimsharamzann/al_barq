@@ -1,3 +1,4 @@
+import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:al_barq/src/features/products/models/product_model.dart';
 import 'package:al_barq/src/features/products/screens/product_details.dart';
 import 'package:flutter/material.dart';
@@ -67,10 +68,9 @@ class _ProductCardState extends State<ProductCard> {
                     ),
                     child: Text(
                       widget.productModel.category,
-                      style: const TextStyle(
+                      style: context.textTheme.titleLarge?.copyWith(
                         color: Colors.deepOrangeAccent,
                         fontSize: 11,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -116,11 +116,7 @@ class _ProductCardState extends State<ProductCard> {
                 children: [
                   Text(
                     widget.productModel.name,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.black87,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: context.textTheme.bodyLarge?.copyWith(fontSize: 14),
                   ),
                   const SizedBox(height: 2),
                   Row(
@@ -129,7 +125,7 @@ class _ProductCardState extends State<ProductCard> {
                       const SizedBox(width: 4),
                       Text(
                         "${widget.productModel.rating}",
-                        style: const TextStyle(
+                        style: context.textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.w500,
                           fontSize: 10,
                         ),
@@ -141,9 +137,8 @@ class _ProductCardState extends State<ProductCard> {
                     children: [
                       Text(
                         widget.productModel.price.toString(),
-                        style: const TextStyle(
+                        style: context.textTheme.bodyLarge?.copyWith(
                           fontSize: 14,
-                          fontWeight: FontWeight.bold,
                           color: Colors.deepOrangeAccent,
                         ),
                       ),

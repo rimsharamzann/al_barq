@@ -2,6 +2,7 @@ import 'package:al_barq/src/core/components/layout_widget.dart';
 import 'package:al_barq/src/core/constants/assets_strings.dart'
     show AssetString;
 import 'package:al_barq/src/core/constants/my_colors.dart';
+import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -65,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen>
           ),
           Text(
             'Pakistan\'s Solar MarketPlace',
-            style: TextStyle(
+            style: context.textTheme.bodySmall?.copyWith(
               color: MyColors.primaryColor,
               fontSize: 16,
               fontWeight: FontWeight.w500,

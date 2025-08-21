@@ -1,5 +1,6 @@
 import 'package:al_barq/config/theme_data.dart';
 import 'package:al_barq/src/core/components/layout_widget.dart';
+import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:al_barq/src/features/orders/screens/review_order.dart';
 import 'package:flutter/material.dart';
 
@@ -69,13 +70,6 @@ class _BillingInformationState extends State<BillingInformation> {
   }
 
   Widget _title(String title) {
-    return Text(
-      title,
-      style: TextStyle(
-        color: Colors.black87,
-        fontSize: 18,
-        fontWeight: FontWeight.w700,
-      ),
-    );
+    return Text(title, style: context.textTheme.bodyLarge);
   }
 }

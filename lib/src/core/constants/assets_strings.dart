@@ -4,12 +4,12 @@ mixin AssetString {
   static const logoD = 'assets/images/Barq 3.png';
 
   static const solar = 'assets/images/solar.png';
-  static const battery = 'assets/images/Frame 40.png';
-  static const sattlite = 'assets/images/Frame 41.png';
-  static const battery1 = 'assets/images/Frame 77.png';
-  static const battery2 = 'assets/images/Frame 80.png';
-  static const solar1 = 'assets/images/Frame 82.png';
-  static const solar2 = 'assets/images/Frame 90.png';
+  // static const battery = 'assets/images/Frame 40.png';
+  // static const sattlite = 'assets/images/Frame 41.png';
+  // static const battery1 = 'assets/images/Frame 77.png';
+  // static const battery2 = 'assets/images/Frame 80.png';
+  // static const solar1 = 'assets/images/Frame 82.png';
+  // static const solar2 = 'assets/images/Frame 90.png';
   static const img = 'assets/images/img 2.png';
 
   static const solarPanel = 'assets/images/solar-panel.png';

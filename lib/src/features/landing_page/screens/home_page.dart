@@ -79,14 +79,7 @@ class _HomePageState extends State<HomePage> {
         horizontal: 12,
         vertical: myPadding / 3,
       ),
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
-      ),
+      child: Text(title, style: context.textTheme.bodyLarge),
     );
   }
 }
@@ -141,36 +134,28 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 8,
-        vertical: myPadding / 3,
-      ),
-      child: Row(
-        children: products.map((product) {
+    return SizedBox(
+      height: myPadding * 6,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          final product = products[index];
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6),
+            padding: const EdgeInsets.symmetric(horizontal: myPadding / 2),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 CircleAvatar(
-                  radius: 35,
+                  radius: 28,
                   backgroundImage: NetworkImage(product.image),
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  product.name,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                const SizedBox(height: myPadding / 2),
+                Text(product.name, style: context.textTheme.bodyMedium),
               ],
             ),
           );
-        }).toList(),
+        },
+        itemCount: products.length,
       ),
     );
   }

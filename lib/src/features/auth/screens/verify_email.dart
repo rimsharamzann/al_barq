@@ -2,6 +2,7 @@ import 'package:al_barq/src/core/components/buttons.dart';
 import 'package:al_barq/src/core/components/layout_widget.dart';
 import 'package:al_barq/src/core/constants/assets_strings.dart';
 import 'package:al_barq/src/core/constants/my_colors.dart';
+import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
@@ -21,7 +22,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
-      textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+      textStyle: context.textTheme.bodyMedium?.copyWith(fontSize: 20),
       decoration: BoxDecoration(
         color: Colors.grey.shade100,
         borderRadius: BorderRadius.circular(10),
@@ -50,18 +51,22 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                   ),
                 ),
 
-                const Text(
+                Text(
                   "Verify your email",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                  style: context.textTheme.bodySmall?.copyWith(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 const SizedBox(height: 8),
 
-                /// Subtitle
-                const Text(
+                Text(
                   "Enter code we have sent to your\ninbox example@gmail.com",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    color: Colors.grey,
+                  ),
                 ),
                 const SizedBox(height: 32),
 

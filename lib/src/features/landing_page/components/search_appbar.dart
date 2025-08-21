@@ -1,4 +1,5 @@
 import 'package:al_barq/src/core/constants/my_colors.dart';
+import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:al_barq/src/features/auth/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -56,14 +57,14 @@ class SearchAppbar extends StatelessWidget {
                               },
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
+                                children: [
                                   Text(
                                     "Hey, Ayesha Umair 👋",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
+                                    style: context.textTheme.bodyMedium
+                                        ?.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                   ),
                                   Row(
                                     children: [
@@ -75,10 +76,8 @@ class SearchAppbar extends StatelessWidget {
                                       SizedBox(width: 4),
                                       Text(
                                         "Multan",
-                                        style: TextStyle(
-                                          color: Colors.white70,
-                                          fontSize: 14,
-                                        ),
+                                        style: context.textTheme.bodySmall
+                                            ?.copyWith(color: Colors.white),
                                       ),
                                     ],
                                   ),
@@ -97,13 +96,13 @@ class SearchAppbar extends StatelessWidget {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(6),
                           ),
-                          child: const TextField(
+                          child: TextField(
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "search here....",
-                              hintStyle: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 14,
+                              hintStyle: context.textTheme.bodySmall?.copyWith(
+                                color: Colors.grey.shade800,
+                                height: 1.7,
                               ),
                               prefixIcon: Icon(
                                 Icons.search,
