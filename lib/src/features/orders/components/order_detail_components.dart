@@ -1,10 +1,8 @@
-import 'package:al_barq/src/core/components/custom_container.dart';
+import 'package:al_barq/src/core/components/general_container.dart';
 import 'package:al_barq/src/core/constants/my_colors.dart';
 import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:al_barq/src/features/orders/models/order_model.dart';
 import 'package:flutter/material.dart';
-
-import '../../../core/constants/assets_strings.dart';
 
 class OrderDetailCard extends StatelessWidget {
   const OrderDetailCard({super.key, required this.orderModel});
@@ -30,28 +28,23 @@ class OrderDetailCard extends StatelessWidget {
             children: [
               Text(
                 'Order Details',
-                style: TextStyle(
+                style: context.textTheme.bodyLarge?.copyWith(
                   color: Colors.white,
-                  fontSize: 18,
                   fontWeight: FontWeight.w700,
                 ),
               ),
               SizedBox(height: 6),
               Text(
                 orderModel.id,
-                style: TextStyle(
+                style: context.textTheme.headlineSmall?.copyWith(
                   color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
                 ),
               ),
               SizedBox(height: 6),
               Text(
                 orderModel.date.toString(),
-                style: TextStyle(
+                style: context.textTheme.headlineSmall?.copyWith(
                   color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
                 ),
               ),
             ],
@@ -79,26 +72,21 @@ class OrderDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomContainer(
-      child: Column(
+    return GeneralContainer(
+      child:
+       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'Order Items',
-            style: TextStyle(
-              color: Colors.black87,
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
+            style: context.textTheme.bodyLarge?.copyWith(
+              color: Colors.grey.shade700,
             ),
           ),
           SizedBox(height: 6),
           Text(
             orderModel.quantity.toString(),
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
+            style: context.textTheme.headlineSmall,
           ),
           SizedBox(height: 6),
 
@@ -107,8 +95,8 @@ class OrderDetails extends StatelessWidget {
               Expanded(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.asset(
-                    AssetString.inverter,
+                  child: Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVQR3IO2qc94kPhg_29KSAyd5wBfZmHxn49A&s',
                     fit: BoxFit.cover,
                     height: 100,
                   ),
@@ -122,10 +110,8 @@ class OrderDetails extends StatelessWidget {
                   children: [
                     Text(
                       orderModel.product.name,
-                      style: TextStyle(
-                        color: Colors.black87,
+                      style: context.textTheme.bodyLarge?.copyWith(
                         fontSize: 16,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
 
@@ -133,20 +119,16 @@ class OrderDetails extends StatelessWidget {
                     Text(
                       orderModel.product.category,
                       // 'PANELS',
-                      style: const TextStyle(
+                      style: context.textTheme.bodySmall?.copyWith(
                         color: MyColors.primaryColor,
-                        fontSize: 12,
+
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(height: 10),
                     Text(
                       'qty : ${orderModel.product.quantity}',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: context.textTheme.labelSmall,
                     ),
                   ],
                 ),
@@ -167,21 +149,13 @@ class OrderDetails extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Order Amount',
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              Text('Order Amount', style: context.textTheme.displaySmall),
 
               Text(
                 'Rs ${orderModel.product.quantity! * orderModel.product.price}',
-                style: const TextStyle(
+                style: context.textTheme.bodyLarge?.copyWith(
                   color: MyColors.primaryColor,
                   fontSize: 16,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
             ],
@@ -197,18 +171,11 @@ class DeliveryInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomContainer(
+    return GeneralContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Delivery Information',
-            style: TextStyle(
-              color: Colors.black87,
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text('Delivery Information', style: context.textTheme.bodyLarge),
           SizedBox(height: 10),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,41 +196,16 @@ class DeliveryInformation extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Home',
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  Text('Home', style: context.textTheme.bodyLarge),
                   SizedBox(height: 4),
                   Text(
                     'New York, NY 10001',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: context.textTheme.labelSmall,
                   ),
                   SizedBox(height: 6),
-                  Text(
-                    'Ali Haider',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                  Text('Ali Haider', style: context.textTheme.labelSmall),
                   SizedBox(height: 6),
-                  Text(
-                    '09876543234567',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                  Text('09876543234567', style: context.textTheme.labelSmall),
                 ],
               ),
             ],

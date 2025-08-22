@@ -62,7 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black12,
-                      blurRadius: 8,
+                      blurRadius: myPadding / 2,
                       offset: Offset(0, -2),
                     ),
                   ],
@@ -170,7 +170,7 @@ class _SignUpDataState extends State<SignUpData> {
 
         // Button
         CustomElevatedButton(text: 'Register', onPress: () {}),
-
+        SizedBox(height: myPadding / 3),
         Center(
           child: Text.rich(
             TextSpan(
@@ -203,8 +203,10 @@ class _SignUpDataState extends State<SignUpData> {
 
         Row(
           children: [
-            Expanded(child: Divider(color: Colors.grey, height: 10)),
-            const SizedBox(width: 6),
+            Expanded(
+              child: Divider(color: Colors.grey, height: myPadding / 2),
+            ),
+            const SizedBox(width: myPadding / 3),
             Text(
               "OR",
               style: context.textTheme.bodySmall?.copyWith(
@@ -217,26 +219,7 @@ class _SignUpDataState extends State<SignUpData> {
           ],
         ),
 
-        OutlinedButton.icon(
-          style: OutlinedButton.styleFrom(
-            minimumSize: const Size(double.infinity, 50),
-            backgroundColor: Colors.blue.shade50,
-            side: BorderSide(color: Colors.blue.shade50),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-          icon: SvgPicture.asset(AssetString.google, height: 20),
-          label: Text(
-            "Sign up with Google",
-            style: context.textTheme.bodyMedium?.copyWith(
-              color: Colors.blue,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          onPressed: () {},
-        ),
-
+        GoogleLogin(),
         SizedBox(height: 10),
       ],
     );
@@ -259,8 +242,7 @@ class PasswordFeild extends StatefulWidget {
 }
 
 class _PasswordFeildState extends State<PasswordFeild> {
-  // ignore: unused_field
-  bool _obscureText = true;
+  bool obscureText = true;
   @override
   Widget build(BuildContext context) {
     return TextFeildWithTitle(
@@ -270,7 +252,7 @@ class _PasswordFeildState extends State<PasswordFeild> {
       obsecureText: widget.obscureText,
       sufix: GestureDetector(
         onTap: () {
-          setState(() => _obscureText = !widget.obscureText);
+          setState(() => obscureText = !widget.obscureText);
         },
         child: CircleAvatar(
           backgroundColor: Colors.transparent,

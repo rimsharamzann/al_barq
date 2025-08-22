@@ -1,4 +1,4 @@
-package com.example.al_barq
+package com.leadsoftwares.albarq
 
 import io.flutter.embedding.android.FlutterActivity
 

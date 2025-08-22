@@ -2,12 +2,13 @@
 
 import 'dart:io';
 
+import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../config/theme_data.dart';
 import '../../../core/components/buttons.dart';
-import '../../../core/components/layout_widget.dart';
+import '../../../core/components/nav_bar.dart';
 import '../../../core/components/text_feild_with_title.dart';
 import '../../../core/constants/assets_strings.dart';
 
@@ -39,7 +40,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: SafeArea(
             child: Wrap(
               children: [
-                SizedBox(height: 10),
+                SizedBox(height: myPadding / 2),
                 ListTile(
                   leading: const Icon(Icons.camera_alt),
                   title: const Text('Take a photo'),
@@ -81,61 +82,69 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: myPadding),
         children: [
-          const SizedBox(height: 10),
+          const SizedBox(height: myPadding / 2),
           _userData(),
-          const SizedBox(height: 16),
+          const SizedBox(height: myPadding),
           _title('Personal Information'),
           TextFeildWithTitle(
             title: 'Name',
             label: 'Ayesha',
             controller: _nameController,
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: myPadding / 2),
           TextFeildWithTitle(
             title: 'Email',
             label: 'ayesha@gmail.com',
             controller: _emailController,
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: myPadding / 2),
           TextFeildWithTitle(
             title: 'Password',
             label: '********',
             controller: _passwordController,
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: myPadding / 2),
           TextFeildWithTitle(
             title: 'Phone Number',
             label: '09876543',
             controller: _phoneController,
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: myPadding / 2),
           TextFeildWithTitle(
             title: 'City',
             label: 'Multan',
             controller: _cityController,
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: myPadding / 2),
           TextFeildWithTitle(
             title: 'Zip Code',
             label: '8000',
             controller: _zipCOdeController,
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: myPadding / 2),
           TextFeildWithTitle(
             title: 'Address',
             label: '3891 Ranchview Dr. Richardson, California 62639 ',
             controller: _addressController,
           ),
-          const SizedBox(height: 10),
-          CustomElevatedButton(
-            text: 'Save',
-            onPress: () {
-              Navigator.pushNamed(context, '/navbar');
-            },
-          ),
-          const SizedBox(height: 10),
+          const SizedBox(height: myPadding / 2),
+
+          const SizedBox(height: myPadding * 6),
         ],
       ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: myPadding / 2),
+          child: CustomElevatedButton(
+            text: 'Save',
+            onPress: () {
+              Navigator.pushNamed(context, Navbar.routeName);
+            },
+          ),
+        ),
+      ),
+      extendBody: true,
     );
   }
 
@@ -155,7 +164,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 right: 0,
                 top: 0,
                 child: Container(
-                  height: 40,
+                  height: myPadding * 2.2,
                   decoration: BoxDecoration(
                     color: Colors.deepOrange,
                     shape: BoxShape.circle,
@@ -164,7 +173,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: IconButton(
                     icon: const Icon(
                       Icons.mode_edit_outline_outlined,
-                      size: 20,
+                      size: myPadding,
                       color: Colors.white,
                     ),
                     onPressed: _showImagePickerOptions,
@@ -174,36 +183,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ),
         ),
-        const SizedBox(height: 8),
-        const Text(
-          'Aysha Umar',
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.black,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        const SizedBox(height: 6),
-        const Text(
+        const SizedBox(height: myPadding / 2),
+        Text('Aysha Umar', style: context.textTheme.bodyLarge),
+        const SizedBox(height: myPadding / 3),
+        Text(
           'abc@gmail.com',
-          style: TextStyle(
-            fontSize: 14,
+          style: context.textTheme.bodyMedium?.copyWith(
             color: Colors.black54,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w500,
           ),
         ),
-        const SizedBox(height: 6),
+        const SizedBox(height: myPadding / 3),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Icon(Icons.location_on_outlined, color: Colors.black54),
-            SizedBox(width: 6),
+            SizedBox(width: myPadding / 3),
             Text(
               'Multan',
-              style: TextStyle(
-                fontSize: 14,
+              style: context.textTheme.bodyMedium?.copyWith(
                 color: Colors.black54,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ],
@@ -213,13 +213,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _title(String title) {
-    return Text(
-      title,
-      style: const TextStyle(
-        color: Colors.black87,
-        fontSize: 20,
-        fontWeight: FontWeight.w700,
-      ),
-    );
+    return Text(title, style: context.textTheme.bodyLarge);
   }
 }

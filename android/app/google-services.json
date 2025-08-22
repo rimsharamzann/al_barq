@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "82994678210",
+    "project_id": "pipek-7244e",
+    "storage_bucket": "pipek-7244e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82994678210:android:59cc5d015e4a25cd6aae5b",
+        "android_client_info": {
+          "package_name": "com.leadsoftwares.albarq"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBURdWFRZPqGvXW_D3T8XJih5LqokQMruw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82994678210:android:64878918de644d7e6aae5b",
+        "android_client_info": {
+          "package_name": "com.example.navyAccess"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBURdWFRZPqGvXW_D3T8XJih5LqokQMruw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82994678210:android:72f40e1e9b3d97ab6aae5b",
+        "android_client_info": {
+          "package_name": "com.example.navy_access"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBURdWFRZPqGvXW_D3T8XJih5LqokQMruw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

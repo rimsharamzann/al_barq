@@ -1,4 +1,4 @@
-import 'package:al_barq/src/core/components/layout_widget.dart';
+import 'package:al_barq/src/core/components/nav_bar.dart';
 import 'package:al_barq/src/core/constants/assets_strings.dart'
     show AssetString;
 import 'package:al_barq/src/core/constants/my_colors.dart';

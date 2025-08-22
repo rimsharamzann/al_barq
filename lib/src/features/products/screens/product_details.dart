@@ -1,7 +1,9 @@
+import 'package:al_barq/config/theme_data.dart';
 import 'package:al_barq/src/core/constants/assets_strings.dart';
 import 'package:al_barq/src/core/constants/my_colors.dart';
 import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:al_barq/src/features/products/models/product_model.dart';
+import 'package:al_barq/src/features/products/screens/products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -64,16 +66,24 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                     Row(
                       children: [
-                        CircleAvatar(
-                          radius: 16,
-                          backgroundColor: Colors.white,
-                          child: SvgPicture.asset(
-                            AssetString.wishlist,
-                            height: 18,
-                            width: 18,
-                            colorFilter: const ColorFilter.mode(
-                              Colors.red,
-                              BlendMode.srcIn,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              ProductScreen.routeName,
+                            );
+                          },
+                          child: CircleAvatar(
+                            radius: 16,
+                            backgroundColor: Colors.white,
+                            child: SvgPicture.asset(
+                              AssetString.wishlist,
+                              height: 18,
+                              width: 18,
+                              colorFilter: const ColorFilter.mode(
+                                Colors.red,
+                                BlendMode.srcIn,
+                              ),
                             ),
                           ),
                         ),
@@ -97,7 +107,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ),
               ),
 
-              /// Page Indicator
               Positioned(
                 bottom: 10,
                 left: 0,
@@ -125,7 +134,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
               decoration: const BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                // borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
                 boxShadow: [BoxShadow(blurRadius: 8, color: Colors.black26)],
               ),
               child: SingleChildScrollView(
@@ -134,10 +143,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                   children: [
                     Text(
                       product.name,
-                      style: const TextStyle(
+                      style: context.textTheme.bodyLarge?.copyWith(
                         fontSize: 22,
-                        color: Colors.black87,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -166,19 +173,15 @@ class _ProductDetailsState extends State<ProductDetails> {
                     const SizedBox(height: 10),
                     Text(
                       product.price.toString(),
-                      style: const TextStyle(
-                        fontSize: 20,
+                      style: context.textTheme.bodyLarge?.copyWith(
                         color: MyColors.primaryColor,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 10),
                     Text(
                       product.description,
-                      style: const TextStyle(
-                        color: Colors.black54,
+                      style: context.textTheme.labelMedium?.copyWith(
                         fontSize: 13,
-                        fontWeight: FontWeight.w400,
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -229,17 +232,16 @@ class _ProductDetailsState extends State<ProductDetails> {
       childrenPadding: EdgeInsets.zero,
       collapsedShape: const RoundedRectangleBorder(),
       shape: const RoundedRectangleBorder(),
-      title: Text(
-        title,
-        style: const TextStyle(
-          fontWeight: FontWeight.w600,
-          color: Colors.black87,
-        ),
-      ),
-      trailing: const Row(
+      title: Text(title, style: context.textTheme.labelMedium),
+      trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('More', style: TextStyle(color: Colors.black54, fontSize: 14)),
+          Text(
+            'More',
+            style: context.textTheme.labelSmall?.copyWith(
+              color: Colors.black54,
+            ),
+          ),
           SizedBox(width: 6),
           Icon(Icons.arrow_drop_down_sharp, size: 20),
         ],
@@ -248,17 +250,16 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 
-  TextStyle _style() {
-    return const TextStyle(
-      color: Colors.black87,
-      fontSize: 12,
-      fontWeight: FontWeight.w300,
-    );
+  TextStyle? _style() {
+    return context.textTheme.bodySmall;
   }
 
   Widget _infoBox(String value, String label, IconData icon, Color? color) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+      padding: const EdgeInsets.symmetric(
+        horizontal: myPadding / 3,
+        vertical: myPadding / 4,
+      ),
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(width: 1, color: Colors.grey.shade300),
@@ -268,11 +269,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         children: [
           Text(
             label,
-            style: const TextStyle(
-              color: Colors.grey,
-              fontWeight: FontWeight.w500,
-              fontSize: 12,
-            ),
+            style: context.textTheme.labelSmall?.copyWith(fontSize: 12),
           ),
           const SizedBox(width: 3),
 
@@ -281,11 +278,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
           Text(
             value,
-            style: const TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 10,
-              color: Colors.grey,
-            ),
+            style: context.textTheme.labelSmall?.copyWith(fontSize: 10),
           ),
         ],
       ),

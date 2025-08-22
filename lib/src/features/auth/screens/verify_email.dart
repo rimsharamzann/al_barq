@@ -1,6 +1,7 @@
 import 'package:al_barq/src/core/components/buttons.dart';
-import 'package:al_barq/src/core/components/layout_widget.dart';
+import 'package:al_barq/src/core/components/nav_bar.dart';
 import 'package:al_barq/src/core/constants/assets_strings.dart';
+import 'package:al_barq/src/core/constants/constants.dart';
 import 'package:al_barq/src/core/constants/my_colors.dart';
 import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +21,8 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
-      width: 56,
-      height: 56,
+      width: myPadding * 5.6,
+      height: myPadding * 5.6,
       textStyle: context.textTheme.bodyMedium?.copyWith(fontSize: 20),
       decoration: BoxDecoration(
         color: Colors.grey.shade100,
@@ -35,9 +36,11 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
       body: SafeArea(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 60),
+            padding: const EdgeInsets.symmetric(
+              horizontal: myPadding * 2.4,
+              vertical: myPadding * 6,
+            ),
             child: ListView(
-              // mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Center(
                   child: ClipRRect(
@@ -45,8 +48,8 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                     child: Image.asset(
                       AssetString.logoD,
                       fit: BoxFit.contain,
-                      height: 180,
-                      width: 180,
+                      height: myPadding * 18,
+                      width: myPadding * 18,
                     ),
                   ),
                 ),
@@ -83,9 +86,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                     ),
                   ),
                   submittedPinTheme: defaultPinTheme,
-                  onCompleted: (pin) {
-                    debugPrint('Entered OTP: $pin');
-                  },
+                  onCompleted: (pin) {},
                 ),
 
                 const SizedBox(height: 32),

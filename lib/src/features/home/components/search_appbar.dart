@@ -1,4 +1,6 @@
+import 'package:al_barq/src/core/constants/constants.dart';
 import 'package:al_barq/src/core/constants/my_colors.dart';
+import 'package:al_barq/src/core/constants/network_images.dart';
 import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:al_barq/src/features/auth/screens/login_screen.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +11,7 @@ class SearchAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 180,
-      // pinned: true,
+      expandedHeight: myPadding * 18,
       floating: true,
 
       backgroundColor: Colors.transparent,
@@ -18,9 +19,8 @@ class SearchAppbar extends StatelessWidget {
 
       flexibleSpace: FlexibleSpaceBar(
         background: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(16),
-            bottomRight: Radius.circular(16),
+          borderRadius: const BorderRadius.vertical(
+            bottom: Radius.circular(16),
           ),
           child: Stack(
             children: [
@@ -34,7 +34,12 @@ class SearchAppbar extends StatelessWidget {
                 ),
                 child: SafeArea(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 30, 16, 12),
+                    padding: const EdgeInsets.fromLTRB(
+                      myPadding * 1.6,
+                      myPadding * 3,
+                      myPadding * 1.6,
+                      myPadding * 1.2,
+                    ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,12 +47,12 @@ class SearchAppbar extends StatelessWidget {
                         Row(
                           children: [
                             const CircleAvatar(
-                              radius: 22,
+                              radius: myPadding * 2.2,
                               backgroundImage: NetworkImage(
-                                "https://media.istockphoto.com/id/987652760/photo/lady-girl-facing-and-watching-a-beautiful-sunrise.jpg?s=612x612&w=0&k=20&c=xkQe-vDUum_5u-s5qTsufl9APD3auGU8mhkxITsuzPY=",
+                                NetworkImages.profile,
                               ),
                             ),
-                            const SizedBox(width: 10),
+                            const SizedBox(width: myPadding),
                             GestureDetector(
                               onTap: () {
                                 Navigator.pushNamed(
@@ -60,7 +65,7 @@ class SearchAppbar extends StatelessWidget {
                                 children: [
                                   Text(
                                     "Hey, Ayesha Umair 👋",
-                                    style: context.textTheme.bodyMedium
+                                    style: context.textTheme.bodyLarge
                                         ?.copyWith(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
@@ -70,7 +75,7 @@ class SearchAppbar extends StatelessWidget {
                                     children: [
                                       Icon(
                                         Icons.location_on,
-                                        size: 16,
+                                        size: myPadding * 1.6,
                                         color: Colors.white70,
                                       ),
                                       SizedBox(width: 4),
@@ -87,16 +92,22 @@ class SearchAppbar extends StatelessWidget {
                           ],
                         ),
 
-                        const SizedBox(height: 16),
+                        const SizedBox(height: myPadding * 1.6),
 
                         Container(
                           height: 45,
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: myPadding,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: TextField(
+                            style: TextStyle(
+                              color: Colors.grey.shade600,
+                              fontWeight: FontWeight.w400,
+                            ),
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "search here....",
@@ -107,11 +118,11 @@ class SearchAppbar extends StatelessWidget {
                               prefixIcon: Icon(
                                 Icons.search,
                                 color: Colors.grey,
-                                size: 20,
+                                size: myPadding * 2.5,
                               ),
                               isDense: true,
                               contentPadding: EdgeInsets.symmetric(
-                                vertical: 12,
+                                vertical: myPadding / 2,
                               ),
                             ),
                           ),

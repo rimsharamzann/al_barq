@@ -2,8 +2,8 @@ import 'package:al_barq/src/core/constants/constants.dart';
 import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 
-class CustomContainer extends StatelessWidget {
-  const CustomContainer({
+class GeneralContainer extends StatelessWidget {
+  const GeneralContainer({
     super.key,
     this.height,
     this.width,
@@ -25,7 +25,7 @@ class CustomContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height,
-      margin: margin ?? EdgeInsets.symmetric(vertical: myPadding/2),
+      margin: margin ?? EdgeInsets.symmetric(vertical: myPadding / 2),
       padding: padding ?? EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       width: width ?? context.width,
       decoration: BoxDecoration(

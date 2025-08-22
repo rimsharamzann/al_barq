@@ -1,6 +1,6 @@
 import 'package:al_barq/config/theme_data.dart';
 import 'package:al_barq/src/core/components/buttons.dart';
-import 'package:al_barq/src/core/components/layout_widget.dart';
+import 'package:al_barq/src/core/components/nav_bar.dart';
 import 'package:al_barq/src/core/components/text_feild_with_title.dart';
 import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:al_barq/src/features/orders/screens/billing_info.dart';
@@ -62,22 +62,27 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             label: 'abc, street, multan',
             controller: _addressController,
           ),
-          SizedBox(height: myPadding),
-          CustomElevatedButton(
+
+          SizedBox(height: myPadding * 8),
+        ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: myPadding/2),
+          child: CustomElevatedButton(
             text: 'Next',
             onPress: () {
               Navigator.pushNamed(context, BillingInformation.routeName);
             },
           ),
-          SizedBox(height: myPadding * 8),
-        ],
+        ),
       ),
+      extendBody: true,
     );
   }
 
- 
-      Widget _title(String title) {
+  Widget _title(String title) {
     return Text(title, style: context.textTheme.bodyLarge);
   }
-    
 }

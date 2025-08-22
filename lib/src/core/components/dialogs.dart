@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:al_barq/src/core/components/buttons.dart';
 import 'package:al_barq/src/core/constants/constants.dart';
+import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -42,18 +43,17 @@ class SuccessDialog extends StatelessWidget {
               title,
               textAlign: TextAlign.center,
 
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+              style: context.textTheme.bodyLarge?.copyWith(fontSize: 16),
             ),
           ],
         ),
         content: Text(
           message,
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.grey.shade700, fontSize: 13),
+          style: context.textTheme.bodyMedium?.copyWith(
+            color: Colors.grey.shade700,
+            fontSize: 13,
+          ),
         ),
       ),
     );
@@ -146,11 +146,7 @@ class ReviewsDialog extends StatelessWidget {
             'Thank You for your feedback!',
             textAlign: TextAlign.center,
 
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+            style: context.textTheme.displayMedium,
           ),
         ],
       ),

@@ -1,6 +1,8 @@
 import 'dart:async';
 
-import 'package:al_barq/src/core/constants/constants.dart';
+// import 'package:al_barq/src/core/constants/constants.dart';
+import 'package:al_barq/config/theme_data.dart';
+import 'package:al_barq/src/core/constants/network_images.dart';
 import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -18,16 +20,15 @@ class _ProductBannerState extends State<ProductBanner> {
   Timer? _timer;
 
   final List<String> banners = [
-    "https://media.istockphoto.com/id/1405880267/photo/two-engineers-installing-solar-panels-on-roof.jpg?s=612x612&w=0&k=20&c=OvQDbJaTnMM4jPfIA3y5vrO88i98NZJRahZtnYFZCq0=",
-    "https://thumbs.dreamstime.com/b/solar-cells-wind-turbines-generating-electricity-power-station-alternative-renewable-energy-nature-97448690.jpg",
-    "http://thumbs.dreamstime.com/b/concept-solar-panel-green-energy-14098504.jpg",
+    NetworkImages.productBanner,
+    NetworkImages.productBanner,
+    NetworkImages.productBanner,
   ];
 
   @override
   void initState() {
     super.initState();
 
-    // slide every 2 seconds
     _timer = Timer.periodic(const Duration(seconds: 2), (Timer timer) {
       if (_currentIndex < banners.length - 1) {
         _currentIndex++;
@@ -52,10 +53,7 @@ class _ProductBannerState extends State<ProductBanner> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: myPadding / 2,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: myPadding / 2),
       child: Column(
         children: [
           SizedBox(
@@ -97,9 +95,8 @@ class _ProductBannerState extends State<ProductBanner> {
                             Text(
                               "Solar Products",
                               style: context.textTheme.bodyMedium?.copyWith(
-                                fontSize: 25,
+                                fontSize: 24,
                                 color: Colors.white,
-                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             const SizedBox(height: 4),
@@ -109,7 +106,7 @@ class _ProductBannerState extends State<ProductBanner> {
                                 color: Colors.white,
                               ),
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: myPadding / 2),
                             OutlinedButton(
                               style: OutlinedButton.styleFrom(
                                 side: const BorderSide(color: Colors.white),
@@ -142,15 +139,15 @@ class _ProductBannerState extends State<ProductBanner> {
               },
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: myPadding / 1.5),
           SmoothPageIndicator(
             controller: _pageController,
             count: banners.length,
             effect: ExpandingDotsEffect(
               activeDotColor: Colors.orange,
               dotColor: Colors.grey.shade400,
-              dotHeight: 8,
-              dotWidth: 8,
+              dotHeight: myPadding / 2,
+              dotWidth: myPadding / 2,
               expansionFactor: 3,
             ),
           ),

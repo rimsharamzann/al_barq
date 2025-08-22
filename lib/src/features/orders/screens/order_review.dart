@@ -1,7 +1,9 @@
 import 'package:al_barq/src/core/components/buttons.dart';
-import 'package:al_barq/src/core/components/layout_widget.dart';
+import 'package:al_barq/src/core/components/nav_bar.dart';
+import 'package:al_barq/src/core/components/text_feild_with_title.dart';
 import 'package:al_barq/src/core/constants/constants.dart';
 import 'package:al_barq/src/core/constants/my_colors.dart';
+import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:al_barq/src/features/orders/models/order_model.dart'
     show OrderModel;
 import 'package:flutter/material.dart';
@@ -33,11 +35,7 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
           Text(
             textAlign: TextAlign.center,
             order.id,
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-            ),
+            style: context.textTheme.bodyMedium?.copyWith(color: Colors.grey),
           ),
           SizedBox(height: 8),
           Padding(
@@ -50,7 +48,6 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
                   child: Image.network(
                     //  order.product.image,
                     'https://www.deegesolar.co.uk/wp-content/uploads/2021/10/String_Inverter_FI.jpg',
-                    // AssetString.inverter,
                     fit: BoxFit.cover,
                     height: 90,
                     width: 90,
@@ -64,11 +61,7 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
                     children: [
                       Text(
                         order.product.name,
-                        style: const TextStyle(
-                          color: Colors.black87,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        // style: context.
                       ),
                       const SizedBox(height: 4),
                       Text(
@@ -77,11 +70,7 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
                         // maxLines: 2,
                         // 'High-efficiency monocrystalline solar panel for residential use with 25-year warranty.',
                         // product.category,
-                        style: TextStyle(
-                          color: Colors.grey.shade700,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: context.textTheme.bodySmall,
                       ),
                       const SizedBox(height: 4),
                       Row(
@@ -89,10 +78,8 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
                         children: [
                           Text(
                             'Delivered on:  ${order.product.price}',
-                            style: const TextStyle(
+                            style: context.textTheme.bodyMedium?.copyWith(
                               color: MyColors.primaryColor,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ],
@@ -105,17 +92,8 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
           ),
           SizedBox(height: 8),
           Divider(color: Colors.grey.shade400, thickness: 1.5),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              'Rate this Product',
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
+          _title('Rate this Product'),
+
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: RatingBar(
@@ -143,10 +121,8 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               "${order.product.rating} out of 5",
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
-                color: Colors.grey.shade600,
+              style: context.textTheme.displaySmall?.copyWith(
+                color: Colors.grey.shade500,
               ),
             ),
           ),
@@ -154,9 +130,7 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               '1- Poor, 5 - excellent',
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
+              style: context.textTheme.displaySmall?.copyWith(
                 color: Colors.grey.shade600,
               ),
             ),
@@ -164,45 +138,18 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
 
           SizedBox(height: 8),
           Divider(color: Colors.grey.shade400, thickness: 1.5),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              'Write Your Reviews',
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
+          _title('Write Your Reviews'),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: TextField(
-              maxLines: 4,
+            child: TextFeildWithTitle(
               controller: controller,
-              style: TextStyle(color: Colors.black87, fontSize: 14),
-              cursorColor: Colors.black87,
-              decoration: Constants.inputDecoration(
-                'Tell us about quality, delivery and packaging.....',
-                Text('0/50', style: TextStyle(color: Colors.grey.shade700)),
-                Colors.grey.shade300,
-                null,
-              ),
+              title: null,
+              label: 'Title',
             ),
           ),
 
           Divider(color: Colors.grey.shade400, thickness: 1.5),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              'Add Photo',
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
+          _title('Add Photo'),
           ImageRowWidget(),
           Divider(color: Colors.grey.shade400, thickness: 1.5),
           _rating('Packing Quality', (rating) {
@@ -216,21 +163,33 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
             });
           }, _deliveryRating),
           SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: CustomElevatedButton(
-              text: 'Submit Reviews',
-              onPress: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => ReviewsDialog(),
-                );
-              },
-            ),
-          ),
-          SizedBox(height: 150),
+
+          SizedBox(height: myPadding * 3),
         ],
       ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: myPadding/2),
+          child: CustomElevatedButton(
+            text: 'Submit Reviews',
+            onPress: () {
+              showDialog(
+                context: context,
+                builder: (context) => ReviewsDialog(),
+              );
+            },
+          ),
+        ),
+      ),
+      extendBody: true,
+    );
+  }
+
+  Widget _title(String title) {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Text(title, style: context.textTheme.displaySmall),
     );
   }
 
@@ -246,10 +205,8 @@ class _OrderReviewSCreenState extends State<OrderReviewSCreen> {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: context.textTheme.bodyMedium?.copyWith(
               color: Colors.grey.shade700,
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
             ),
           ),
           RatingBar(

@@ -1,5 +1,5 @@
 import 'package:al_barq/src/core/components/buttons.dart';
-import 'package:al_barq/src/core/components/layout_widget.dart';
+import 'package:al_barq/src/core/components/nav_bar.dart';
 import 'package:al_barq/src/core/constants/assets_strings.dart'
     show AssetString;
 import 'package:al_barq/src/core/constants/constants.dart';
@@ -85,7 +85,7 @@ class LoginData extends StatefulWidget {
 }
 
 class _LoginDataState extends State<LoginData> {
-  bool _obscureText = true;
+  final bool _obscureText = true;
   bool _rememberMe = false;
 
   final TextEditingController _emailController = TextEditingController();
@@ -217,25 +217,7 @@ class _LoginDataState extends State<LoginData> {
           ],
         ),
 
-        OutlinedButton.icon(
-          style: OutlinedButton.styleFrom(
-            minimumSize: const Size(double.infinity, 50),
-            backgroundColor: Colors.blue.shade50,
-            side: BorderSide(color: Colors.blue.shade50),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-          icon: SvgPicture.asset(AssetString.google, height: 20),
-          label: Text(
-            "Sign in with Google",
-            style: context.textTheme.bodyMedium?.copyWith(
-              color: Colors.blue,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          onPressed: () {},
-        ),
+        GoogleLogin(),
       ],
     );
   }

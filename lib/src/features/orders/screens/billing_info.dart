@@ -1,5 +1,5 @@
 import 'package:al_barq/config/theme_data.dart';
-import 'package:al_barq/src/core/components/layout_widget.dart';
+import 'package:al_barq/src/core/components/nav_bar.dart';
 import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:al_barq/src/features/orders/screens/review_order.dart';
 import 'package:flutter/material.dart';
@@ -57,15 +57,22 @@ class _BillingInformationState extends State<BillingInformation> {
             label: 'enter',
             controller: _cvvController,
           ),
-          SizedBox(height: myPadding),
-          CustomElevatedButton(
+          SizedBox(height: myPadding * 4),
+        ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: myPadding/2),
+          child: CustomElevatedButton(
             text: 'Next',
             onPress: () {
               Navigator.pushNamed(context, ReviewOrderScreen.routeName);
             },
           ),
-        ],
+        ),
       ),
+      extendBody: true,
     );
   }
 

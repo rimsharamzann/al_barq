@@ -1,9 +1,10 @@
-import 'package:al_barq/src/core/components/layout_widget.dart';
+import 'package:al_barq/src/core/components/nav_bar.dart';
 import 'package:al_barq/src/core/constants/my_colors.dart';
+import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:al_barq/src/features/settings/models/notification_model.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/components/custom_container.dart';
+import '../../../core/components/general_container.dart';
 import '../../../core/constants/assets_strings.dart';
 
 class NotificationScreen extends StatelessWidget {
@@ -12,31 +13,12 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final notifications = [
-      NotificationModel(
-        title: 'New Updated Version',
-        description:
-            'New Updated version is live now, Go and update your app now...',
-        date: 'June 24, 2025',
-      ),
-      NotificationModel(
-        title: 'Order Delivered',
-        description:
-            'Your order has been successfully delivered to your address.',
-        date: 'June 24, 2025',
-      ),
-      NotificationModel(
-        title: 'Order Placed Successfully',
-        description: 'Your order has been placed and is being processed.',
-        date: 'June 24, 2025',
-      ),
-    ];
-
     return Scaffold(
       appBar: AppBarWidget(title: 'Notifications'),
       body: ListView.builder(
-        itemCount: notifications.length,
+        itemCount: NotificationModel.notificationDummyData.length,
         itemBuilder: (context, index) {
+          final notifications = NotificationModel.notificationDummyData;
           return NotificationCard(notification: notifications[index]);
         },
       ),
@@ -50,7 +32,7 @@ class NotificationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomContainer(
+    return GeneralContainer(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,18 +48,12 @@ class NotificationCard extends StatelessWidget {
               children: [
                 Text(
                   notification.title,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black.withValues(alpha: 0.8),
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: context.textTheme.bodyLarge?.copyWith(fontSize: 16),
                 ),
 
                 Text(
                   notification.description,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
+                  style: context.textTheme.labelSmall?.copyWith(
                     color: Colors.grey.shade700,
                   ),
                 ),
@@ -86,11 +62,8 @@ class NotificationCard extends StatelessWidget {
                   child: Text(
                     textAlign: TextAlign.right,
                     notification.date,
-                    style: TextStyle(
-                      fontSize: 14,
+                    style: context.textTheme.bodyMedium?.copyWith(
                       color: MyColors.primaryColor,
-
-                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),

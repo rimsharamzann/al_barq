@@ -3,7 +3,7 @@ import 'package:al_barq/src/features/orders/models/order_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/components/buttons.dart';
-import '../../../core/components/layout_widget.dart';
+import '../../../core/components/nav_bar.dart';
 import '../components/order_detail_components.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
@@ -25,11 +25,17 @@ class OrderDetailsScreen extends StatelessWidget {
           OrderDetails(orderModel: order),
           const SizedBox(height: myPadding / 2),
           const DeliveryInformation(),
-          const SizedBox(height: myPadding),
-          CustomElevatedButton(text: 'Buy Again', onPress: () {}),
           const SizedBox(height: myPadding * 6),
         ],
       ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: myPadding/2),
+          child: CustomElevatedButton(text: 'Buy Again', onPress: () {}),
+        ),
+      ),
+      extendBody: true,
     );
   }
 }

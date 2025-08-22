@@ -1,4 +1,5 @@
-import 'package:al_barq/src/features/landing_page/screens/home_page.dart';
+import 'package:al_barq/src/core/extensions/context_extensions.dart';
+import 'package:al_barq/src/features/home/screens/home_page.dart';
 import 'package:al_barq/src/features/orders/screens/cart_acreen.dart';
 import 'package:al_barq/src/features/settings/screens/notification.dart';
 import 'package:al_barq/src/features/settings/screens/settings.dart';
@@ -35,14 +36,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       backgroundColor: Colors.grey.shade100,
       elevation: 0,
-      title: Text(
-        title,
-        style: const TextStyle(
-          color: Colors.black87,
-          fontWeight: FontWeight.w600,
-          fontSize: 18,
-        ),
-      ),
+      title: Text(title, style: context.textTheme.bodyLarge),
     );
   }
 
@@ -75,6 +69,7 @@ class _NavbarState extends State<Navbar> {
       backgroundColor: Colors.grey.shade100,
       body: IndexedStack(index: _selectedIndex, children: _screens),
       bottomNavigationBar: Container(
+        height: 76,
         margin: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
         decoration: BoxDecoration(
           color: Colors.black,

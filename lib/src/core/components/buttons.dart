@@ -1,119 +1,9 @@
+import 'package:al_barq/src/core/constants/assets_strings.dart';
+import 'package:al_barq/src/core/constants/constants.dart';
 import 'package:al_barq/src/core/constants/my_colors.dart' show MyColors;
 import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
-
-class CustomIconButton extends StatelessWidget {
-  const CustomIconButton({
-    super.key,
-    required this.onPress,
-
-    this.borderRadius,
-    this.color,
-    required this.icon,
-    this.size,
-  });
-  final IconData icon;
-  final Function()? onPress;
-  final Color? color;
-  final double? size;
-  final BorderRadius? borderRadius;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: color ?? Colors.white,
-
-        borderRadius: borderRadius ?? BorderRadius.circular(8),
-        border: Border.all(width: 1, color: Colors.grey),
-      ),
-      child: IconButton(
-        icon: Icon(icon, size: size ?? 16),
-        onPressed: onPress,
-      ),
-    );
-  }
-}
-
-class CustomButton extends StatelessWidget {
-  const CustomButton({
-    super.key,
-    required this.text,
-    required this.onPress,
-    this.loading = false,
-    this.fontSize,
-    this.fontWeight,
-    this.width,
-    this.borderRadius,
-    this.color,
-    this.height,
-    this.useGradient = true,
-  });
-
-  final String text;
-  final double? width;
-  final Function()? onPress;
-  final bool loading;
-  final double? fontSize;
-  final Color? color;
-  final BorderRadius? borderRadius;
-  final FontWeight? fontWeight;
-  final double? height;
-  final bool useGradient;
-
-  @override
-  Widget build(BuildContext context) {
-    final buttonHeight =
-        height ?? 40 ;
-
-    final radius = borderRadius ?? BorderRadius.circular(30);
-
-    return SizedBox(
-      height: buttonHeight,
-      width: width ?? context.width,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          borderRadius: radius,
-          gradient: useGradient
-              ? const LinearGradient(
-                  colors: [Color(0xFFF8A622), Color(0xFFF85B22)],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                )
-              : null,
-          color: useGradient ? null : (color ?? MyColors.primaryColor),
-        ),
-        child: ElevatedButton(
-          onPressed: loading ? null : onPress,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.transparent,
-            shadowColor: Colors.transparent,
-            shape: RoundedRectangleBorder(borderRadius: radius),
-          ),
-          child: loading
-              ? const SizedBox(
-                  height: 24,
-                  width: 24,
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                    strokeWidth: 2.5,
-                  ),
-                )
-              : Text(
-                  text,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize:
-                        fontSize ??
-                        12 ,
-                    fontWeight: fontWeight ?? FontWeight.w700,
-                  ),
-                ),
-        ),
-      ),
-    );
-  }
-}
+import 'package:flutter_svg/svg.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
@@ -127,27 +17,59 @@ class CustomElevatedButton extends StatelessWidget {
   final bool loading;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 45,
-      width: context.width,
-      child: ElevatedButton(
-        onPressed: loading ? () {} : onPress,
-        style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          backgroundColor: MyColors.primaryColor,
+    return ElevatedButton(
+      onPressed: loading ? () {} : onPress,
+      style: ElevatedButton.styleFrom(
+        fixedSize: Size(context.width, 45),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(myPadding),
         ),
-        child: loading
-            ? const Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 18, vertical: 4),
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                    strokeWidth: 2.5,
-                  ),
-                ),
-              )
-            : Text(text, style: const TextStyle(color: Colors.white)),
+        backgroundColor: loading ? Colors.grey : MyColors.primaryColor,
       ),
+      child: loading
+          ? const Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: myPadding * 2,
+                  vertical: 4,
+                ),
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: 2.5,
+                ),
+              ),
+            )
+          : Text(text, style: const TextStyle(color: Colors.white)),
+    );
+  }
+}
+
+class GoogleLogin extends StatefulWidget {
+  const GoogleLogin({super.key});
+
+  @override
+  State<GoogleLogin> createState() => _GoogleLoginState();
+}
+
+class _GoogleLoginState extends State<GoogleLogin> {
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton.icon(
+      style: OutlinedButton.styleFrom(
+        minimumSize: Size(context.width, 45),
+        backgroundColor: Colors.blue.shade50,
+        side: BorderSide(color: Colors.blue.shade50),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+      icon: SvgPicture.asset(AssetString.google, height: 20),
+      label: Text(
+        "Sign in with Google",
+        style: context.textTheme.bodyMedium?.copyWith(
+          color: Colors.blue,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      onPressed: () {},
     );
   }
 }

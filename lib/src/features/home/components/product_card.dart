@@ -1,3 +1,4 @@
+import 'package:al_barq/src/core/constants/constants.dart';
 import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:al_barq/src/features/products/models/product_model.dart';
 import 'package:al_barq/src/features/products/screens/product_details.dart';
@@ -49,7 +50,7 @@ class _ProductCardState extends State<ProductCard> {
                   ),
                   child: Image.network(
                     widget.productModel.image,
-                    height: 120,
+                    height: myPadding * 10.5,
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
@@ -59,8 +60,8 @@ class _ProductCardState extends State<ProductCard> {
                   left: 8,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 3,
+                      horizontal: myPadding,
+                      vertical: myPadding / 6,
                     ),
                     decoration: BoxDecoration(
                       color: Colors.deepOrange.shade50,
@@ -94,7 +95,7 @@ class _ProductCardState extends State<ProductCard> {
                       }
                     },
                     child: CircleAvatar(
-                      radius: 16,
+                      radius: myPadding * 1.5,
                       backgroundColor: Colors.deepOrange.shade50,
                       child: Icon(
                         isFavorite ? Icons.favorite : Icons.favorite_border,
@@ -143,8 +144,8 @@ class _ProductCardState extends State<ProductCard> {
                         ),
                       ),
                       SizedBox(
-                        width: 30,
-                        height: 30,
+                        width: myPadding * 3,
+                        height: myPadding * 3,
                         child: FloatingActionButton(
                           heroTag: null,
 

@@ -1,10 +1,10 @@
 import 'package:al_barq/config/theme_data.dart';
-import 'package:al_barq/src/core/components/layout_widget.dart';
+import 'package:al_barq/src/core/components/nav_bar.dart';
+import 'package:al_barq/src/core/constants/network_images.dart';
+import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/components/custom_container.dart';
-import '../../../core/constants/assets_strings.dart';
-import '../../../core/constants/my_colors.dart';
+import '../../../core/components/general_container.dart';
 
 class MyWishList extends StatelessWidget {
   const MyWishList({super.key});
@@ -28,14 +28,14 @@ class WishlistCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomContainer(
+    return GeneralContainer(
       child: Row(
         children: [
           Expanded(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                AssetString.inverter,
+              child: Image.network(
+                NetworkImages.productBanner,
                 height: 80,
                 fit: BoxFit.cover,
               ),
@@ -47,14 +47,7 @@ class WishlistCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Solar inverter',
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text('Solar inverter', style: context.textTheme.displaySmall),
 
                 SizedBox(height: 10),
                 Container(
@@ -68,9 +61,8 @@ class WishlistCard extends StatelessWidget {
                   ),
                   child: Text(
                     'PANELS',
-                    style: const TextStyle(
+                    style: context.textTheme.bodySmall?.copyWith(
                       color: Colors.deepOrange,
-                      fontSize: 12,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -79,9 +71,8 @@ class WishlistCard extends StatelessWidget {
 
                 Text(
                   'RS 25000',
-                  style: const TextStyle(
-                    color: MyColors.primaryColor,
-                    fontSize: 12,
+                  style: context.textTheme.bodySmall?.copyWith(
+                    color: Colors.deepOrange,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

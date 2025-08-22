@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:al_barq/src/core/constants/network_images.dart';
+
 class CategoryModel {
   final String id;
   final String name;
@@ -48,4 +50,45 @@ class CategoryModel {
 
   factory CategoryModel.fromJson(String source) =>
       CategoryModel.fromMap(json.decode(source) as Map<String, dynamic>);
+       
+  static List<CategoryModel> dummyCategories = [
+    CategoryModel(
+      id: '',
+      name: "Modules",
+      image:NetworkImages.modules,
+      description: '',
+    ),
+    CategoryModel(
+      id: '',
+      name: "Inverters",
+      image:
+          NetworkImages.inverter,
+      description: '',
+    ),
+    CategoryModel(
+      id: '',
+      name: "Solar Kit",
+      image: NetworkImages.solarKit,
+      description: '',
+    ),
+    CategoryModel(
+      name: "Solar Grid Kit",
+      image: NetworkImages.solarGrid,
+      id: '',
+      description: '',
+    ),
+    CategoryModel(
+      name: "Wires",
+      id: '',
+      image: NetworkImages.wires,
+      description: '',
+    ),
+    CategoryModel(
+      name: "Solar Stand",
+      image: NetworkImages.solarStands,
+      id: '',
+      description: '',
+    ),
+  ];
+
 }

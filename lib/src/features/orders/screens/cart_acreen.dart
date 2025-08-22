@@ -1,7 +1,7 @@
 import 'package:al_barq/config/theme_data.dart';
 import 'package:al_barq/src/core/components/buttons.dart';
-import 'package:al_barq/src/core/components/custom_container.dart';
-import 'package:al_barq/src/core/components/layout_widget.dart';
+import 'package:al_barq/src/core/components/general_container.dart';
+import 'package:al_barq/src/core/components/nav_bar.dart';
 import 'package:al_barq/src/core/constants/assets_strings.dart';
 import 'package:al_barq/src/core/constants/my_colors.dart';
 import 'package:al_barq/src/core/extensions/context_extensions.dart';
@@ -23,7 +23,9 @@ class _CartScreenState extends State<CartScreen> {
     ProductModel(
       category: 'PANELS',
       name: 'Solar Inverter',
-      image: AssetString.inverter,
+
+      image:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVQR3IO2qc94kPhg_29KSAyd5wBfZmHxn49A&s',
       rating: 4,
       price: 8000,
       id: '1',
@@ -70,7 +72,7 @@ class _CartScreenState extends State<CartScreen> {
             },
           ),
           SizedBox(height: 10),
-          CustomContainer(
+          GeneralContainer(
             margin: EdgeInsets.all(0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -123,7 +125,7 @@ class MyCartCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomContainer(
+    return GeneralContainer(
       child: Row(
         children: [
           Expanded(

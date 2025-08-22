@@ -1,7 +1,8 @@
 import 'package:al_barq/src/core/components/buttons.dart';
-import 'package:al_barq/src/core/components/custom_container.dart';
-import 'package:al_barq/src/core/components/layout_widget.dart';
+import 'package:al_barq/src/core/components/general_container.dart';
+import 'package:al_barq/src/core/components/nav_bar.dart';
 import 'package:al_barq/src/core/constants/assets_strings.dart';
+import 'package:al_barq/src/core/constants/constants.dart';
 import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:al_barq/src/features/orders/enums/order_status.dart';
 import 'package:al_barq/src/features/orders/models/order_model.dart';
@@ -40,27 +41,6 @@ class _OrderScreenState extends State<OrderScreen>
 
   @override
   Widget build(BuildContext context) {
-    final product = ProductModel(
-      id: "productId123",
-      name: "Solar Panel",
-      description: "High efficiency solar panel",
-      price: 8000,
-      image:
-          'https://www.deegesolar.co.uk/wp-content/uploads/2021/10/String_Inverter_FI.jpg',
-      category: 'PANEL',
-      rating: 4.5,
-      quantity: 4,
-    );
-
-    final order = OrderModel(
-      id: '#9876543',
-      price: product.price,
-      product: product,
-      status: OrderStatus.confirmed,
-      date: DateTime.now(),
-      quantity: 2,
-    );
-
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBarWidget(title: 'Orders'),
@@ -106,19 +86,18 @@ class _OrderScreenState extends State<OrderScreen>
             child: TabBarView(
               controller: controller,
               children: [
-                ListView(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  children: [
-                    ...List.generate(
-                      3,
-                      (index) => OrderCard(orderModel: order),
-                    ),
-                  ],
+                ListView.builder(
+                  padding: EdgeInsets.all(myPadding),
+                  itemCount: OrderModel.orderData.length,
+                  itemBuilder: (context, index) {
+                    final order = OrderModel.orderData;
+                    return OrderCard(orderModel: order[index]);
+                  },
                 ),
 
-                CustomContainer(child: Column()),
-                CustomContainer(child: Column()),
-                CustomContainer(child: Column()),
+                GeneralContainer(child: Column()),
+                GeneralContainer(child: Column()),
+                GeneralContainer(child: Column()),
               ],
             ),
           ),
@@ -162,7 +141,7 @@ class _OrderCardState extends State<OrderCard> {
           arguments: widget.orderModel,
         );
       },
-      child: CustomContainer(
+      child: GeneralContainer(
         child: Column(
           children: [
             _orderId(),
@@ -175,7 +154,9 @@ class _OrderCardState extends State<OrderCard> {
                 const SizedBox(width: 6),
                 Text(
                   _formatDate(widget.orderModel.date),
-                  style: TextStyle(color: Colors.grey.shade700, fontSize: 14),
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    color: Colors.grey.shade700,
+                  ),
                 ),
               ],
             ),
@@ -194,11 +175,7 @@ class _OrderCardState extends State<OrderCard> {
                   flex: 2,
                   child: Text(
                     "Rs ${widget.orderModel.price.toStringAsFixed(0)}",
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: context.textTheme.bodyMedium?.copyWith(fontSize: 17),
                   ),
                 ),
                 const Expanded(child: SizedBox()),
@@ -237,7 +214,7 @@ class _OrderCardState extends State<OrderCard> {
             errorBuilder: (_, __, ___) => const Icon(Icons.broken_image),
           ),
         ),
-        const SizedBox(width: 10),
+        const SizedBox(width: myPadding / 2),
 
         Expanded(
           child: Column(
@@ -245,28 +222,22 @@ class _OrderCardState extends State<OrderCard> {
             children: [
               Text(
                 productModel.name,
-                style: const TextStyle(
-                  color: Colors.black87,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: context.textTheme.bodyLarge?.copyWith(),
               ),
               const SizedBox(height: 8),
               Text(
                 productModel.category,
-                style: const TextStyle(
+                style: context.textTheme.bodySmall?.copyWith(
                   color: MyColors.primaryColor,
-                  fontSize: 12,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 8),
               Text(
                 'Qty: ${productModel.quantity ?? 1}',
-                style: const TextStyle(
+                style: context.textTheme.bodyMedium?.copyWith(
                   color: Colors.grey,
                   fontSize: 14,
-                  fontWeight: FontWeight.w700,
                 ),
               ),
             ],
@@ -295,7 +266,9 @@ class _OrderCardState extends State<OrderCard> {
         ),
         Text(
           'Order ID: ${widget.orderModel.id}',
-          style: const TextStyle(color: MyColors.primaryColor, fontSize: 14),
+          style: context.textTheme.bodyMedium?.copyWith(
+            color: MyColors.primaryColor,
+          ),
         ),
         const Spacer(),
         Container(
@@ -306,10 +279,9 @@ class _OrderCardState extends State<OrderCard> {
           ),
           child: Text(
             status.title,
-            style: TextStyle(
+            style: context.textTheme.bodyLarge?.copyWith(
               color: statusColor,
               fontSize: 12,
-              fontWeight: FontWeight.bold,
             ),
           ),
         ),

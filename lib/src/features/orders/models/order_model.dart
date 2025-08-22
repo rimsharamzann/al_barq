@@ -1,14 +1,3 @@
-// class OrderModel {
-//   final String id;
-//   final String category;
-//   final String image;
-//   final double price;
-//   final ProductModel product;
-
-//   final OrderStatus status;
-//   final DateTime date;
-//   int quantity;
-// }
 import 'dart:convert';
 
 import 'package:al_barq/src/core/enums/enum_methods.dart';
@@ -34,7 +23,7 @@ class OrderModel {
 
   OrderModel copyWith({
     String? id,
-    
+
     double? price,
     ProductModel? product,
     OrderStatus? status,
@@ -43,7 +32,7 @@ class OrderModel {
   }) {
     return OrderModel(
       id: id ?? this.id,
-      
+
       price: price ?? this.price,
       product: product ?? this.product,
       status: status ?? this.status,
@@ -55,7 +44,7 @@ class OrderModel {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-     
+
       'price': price,
       'product': product.toMap(),
       'status': enumToString(status),
@@ -67,7 +56,7 @@ class OrderModel {
   factory OrderModel.fromMap(Map<String, dynamic> map) {
     return OrderModel(
       id: map['id'] ?? '',
-   
+
       price: (map['price'] ?? 0).toDouble(),
       product: ProductModel.fromMap(map['product']),
       status:
@@ -81,4 +70,18 @@ class OrderModel {
 
   factory OrderModel.fromJson(String source) =>
       OrderModel.fromMap(json.decode(source));
+  static List<ProductModel> productData = ProductModel.productsDummyData;
+
+  static List<OrderModel> orderData = ProductModel.productsDummyData
+      .map(
+        (p) => OrderModel(
+          id: '#${DateTime.now().millisecondsSinceEpoch}',
+          price: p.price,
+          product: p,
+          status: OrderStatus.confirmed,
+          date: DateTime.now(),
+          quantity: 2,
+        ),
+      )
+      .toList();
 }

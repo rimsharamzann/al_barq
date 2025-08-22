@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:al_barq/src/core/constants/network_images.dart';
+
 class ProductModel {
   final String id;
   final String name;
@@ -73,4 +75,55 @@ class ProductModel {
 
   factory ProductModel.fromJson(String source) =>
       ProductModel.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  static final List<ProductModel> productsDummyData = [
+    ProductModel(
+      name: "Solar inverter 200W",
+      price: 456789,
+      rating: 4.5,
+      image: NetworkImages.productBanner2,
+      id: "productId123",
+      description:
+          'High-efficiency monocrystalline solar panel for residential use with 25-year warranty.',
+
+      category: 'PANEL',
+      quantity: 4,
+    ),
+ProductModel(
+      id: "productId123",
+      name: "Solar Panel",
+      description: "High efficiency solar panel",
+      price: 8000,
+      image:
+          'https://www.deegesolar.co.uk/wp-content/uploads/2021/10/String_Inverter_FI.jpg',
+      category: 'PANEL',
+      rating: 4.5,
+      quantity: 4,
+    ),
+    ProductModel(
+      name: "Solar inverter 200W",
+      price: 456789,
+      rating: 4.5,
+      image: NetworkImages.inverter,
+      id: "productId123",
+      description:
+          'High-efficiency monocrystalline solar panel for residential use with 25-year warranty.',
+
+      category: 'PANEL',
+      quantity: 4,
+    ),
+    ProductModel(
+      name: "Solar inverter 200W",
+      price: 456789,
+      rating: 4.5,
+      image: NetworkImages.solarInverter,
+
+      id: "productId123",
+      description:
+          'High-efficiency monocrystalline solar panel for residential use with 25-year warranty.',
+
+      category: 'PANEL',
+      quantity: 4,
+    ),
+  ];
 }

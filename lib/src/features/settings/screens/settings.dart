@@ -1,9 +1,9 @@
-import 'package:al_barq/src/core/components/custom_container.dart';
+import 'package:al_barq/src/core/components/general_container.dart';
 import 'package:al_barq/src/core/constants/assets_strings.dart';
 import 'package:al_barq/src/core/constants/constants.dart';
+import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:al_barq/src/features/auth/screens/login_screen.dart';
-import 'package:al_barq/src/features/contact_us/screens/contact_us_screen.dart';
-import 'package:al_barq/src/features/landing_page/screens/home_page.dart';
+import 'package:al_barq/src/features/home/screens/home_page.dart';
 import 'package:al_barq/src/features/orders/screens/cart_acreen.dart';
 import 'package:al_barq/src/features/orders/screens/order_screen.dart';
 import 'package:al_barq/src/features/settings/screens/my_wishlist_screen.dart';
@@ -11,7 +11,7 @@ import 'package:al_barq/src/features/settings/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../core/components/layout_widget.dart';
+import '../../../core/components/nav_bar.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -24,7 +24,7 @@ class SettingScreen extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: myPadding),
         children: [
-          CustomContainer(
+          GeneralContainer(
             child: Column(
               children: [
                 SettingTile(
@@ -59,15 +59,15 @@ class SettingScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 16),
-          CustomContainer(
+          SizedBox(height: myPadding * 1.6),
+          GeneralContainer(
             child: Column(
               children: [
                 SettingTile(
                   icon: Icons.phone_outlined,
                   title: 'Contact us',
                   onTap: () {
-                    Navigator.pushNamed(context, ContactUsScreen.routeName);
+                    // Navigator.pushNamed(context, ContactUsScreen.routeName);
                   },
                 ),
                 SettingTile(
@@ -90,8 +90,8 @@ class SettingScreen extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: 16),
-          CustomContainer(
+          SizedBox(height: myPadding * 1.6),
+          GeneralContainer(
             child: Column(
               children: [
                 SettingTile(
@@ -109,7 +109,7 @@ class SettingScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 160),
+          SizedBox(height: myPadding * 16),
         ],
       ),
     );
@@ -135,17 +135,10 @@ class SettingTile extends StatelessWidget {
     return ListTile(
       onTap: onTap,
       leading: _buildLeading(),
-      title: Text(
-        title,
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-        ),
-      ),
+      title: Text(title, style: context.textTheme.bodyMedium),
       trailing: const Icon(
         Icons.arrow_forward_ios_sharp,
-        color: Colors.black87,
+        color: Colors.black,
         size: 16,
       ),
     );
@@ -160,7 +153,7 @@ class SettingTile extends StatelessWidget {
         colorFilter: const ColorFilter.mode(Colors.black87, BlendMode.srcIn),
       );
     } else if (icon != null) {
-      return Icon(icon, color: Colors.black87, size: 20);
+      return Icon(icon, color: Colors.black, size: 20);
     }
     return const SizedBox.shrink();
   }

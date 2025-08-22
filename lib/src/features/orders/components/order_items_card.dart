@@ -1,51 +1,52 @@
-import 'package:al_barq/src/core/components/custom_container.dart';
-import 'package:al_barq/src/core/constants/assets_strings.dart'
-    show AssetString;
+import 'package:al_barq/src/core/components/general_container.dart';
 import 'package:al_barq/src/core/constants/my_colors.dart';
+import 'package:al_barq/src/core/extensions/context_extensions.dart';
 import 'package:al_barq/src/features/products/models/product_model.dart'
     show ProductModel;
 import 'package:flutter/material.dart';
 
-class OrderItemsCard extends StatelessWidget {
-  const OrderItemsCard({super.key, required this.productModel});
-  final ProductModel productModel;
+class OrderItemsCard extends StatefulWidget {
+  const OrderItemsCard({super.key, required this.products});
+  final List<ProductModel> products;
 
   @override
+  State<OrderItemsCard> createState() => _OrderItemsCardState();
+}
+
+class _OrderItemsCardState extends State<OrderItemsCard> {
+  @override
   Widget build(BuildContext context) {
-    return CustomContainer(
+    return GeneralContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Header
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Text(
                 'Order Items',
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 18,
+                style: context.textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
               ),
               Text(
-                '1 item',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
+                '${widget.products.length} items',
+                style: context.textTheme.labelSmall,
               ),
             ],
           ),
 
           const SizedBox(height: 10),
+
+          // List of order items
           ...List.generate(
-            2,
+            widget.products.length,
             (index) => Column(
               children: [
-                _orderDetail(),
+                _orderDetail(widget.products[index]),
                 const SizedBox(height: 12),
-                if (index != 1)
+                if (index != widget.products.length - 1)
                   Divider(color: Colors.grey.shade400, thickness: 1.5),
                 const SizedBox(height: 12),
               ],
@@ -58,14 +59,16 @@ class OrderItemsCard extends StatelessWidget {
     );
   }
 
-  Widget _orderDetail() {
+  Widget _orderDetail(ProductModel product) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Product Image
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child: Image.asset(
-            AssetString.inverter,
+          child: Image.network(
+            product.image,
+            // 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVQR3IO2qc94kPhg_29KSAyd5wBfZmHxn49A&s',
             fit: BoxFit.cover,
             height: 100,
             width: 100,
@@ -73,24 +76,21 @@ class OrderItemsCard extends StatelessWidget {
         ),
         const SizedBox(width: 10),
 
+        // Product details
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                productModel.name,
-                style: const TextStyle(
-                  color: Colors.black87,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+                product.name,
+                style: context.textTheme.bodyLarge?.copyWith(fontSize: 16),
               ),
               const SizedBox(height: 8),
               Text(
-                productModel.category,
-                style: const TextStyle(
+                product.category,
+                style: context.textTheme.bodySmall?.copyWith(
                   color: MyColors.primaryColor,
-                  fontSize: 12,
+
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -99,20 +99,12 @@ class OrderItemsCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Rs ${productModel.price}',
-                    style: const TextStyle(
-                      color: Colors.black87,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    'Rs ${product.price}',
+                    style: context.textTheme.bodyMedium,
                   ),
                   Text(
-                    'Qty: ${productModel.quantity ?? 1}',
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    'Qty: ${product.quantity ?? 1}',
+                    style: context.textTheme.labelSmall,
                   ),
                 ],
               ),
@@ -124,23 +116,21 @@ class OrderItemsCard extends StatelessWidget {
   }
 }
 
-class OrderSummary extends StatelessWidget {
+class OrderSummary extends StatefulWidget {
   const OrderSummary({super.key});
 
   @override
+  State<OrderSummary> createState() => _OrderSummaryState();
+}
+
+class _OrderSummaryState extends State<OrderSummary> {
+  @override
   Widget build(BuildContext context) {
-    return CustomContainer(
+    return GeneralContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Order Summary',
-            style: TextStyle(
-              color: Colors.black87,
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text('Order Summary', style: context.textTheme.bodyLarge),
           SizedBox(height: 6),
           _orderItem('Sub Total', 'Rs 600'),
           SizedBox(height: 6),
@@ -155,20 +145,11 @@ class OrderSummary extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Total Amount',
-                style: TextStyle(
-                  color: Colors.grey.shade800,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              Text('Total Amount', style: context.textTheme.displaySmall),
               Text(
                 'Rs 8000',
-                style: TextStyle(
+                style: context.textTheme.displaySmall?.copyWith(
                   color: MyColors.primaryColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
             ],
@@ -185,18 +166,14 @@ class OrderSummary extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(
-            color: Colors.grey.shade600,
-            fontSize: 15,
-            fontWeight: FontWeight.w400,
+          style: context.textTheme.bodyMedium?.copyWith(
+            color: Colors.grey.shade700,
           ),
         ),
         Text(
           value,
-          style: TextStyle(
-            color: Colors.grey.shade800,
-            fontSize: 15,
-            fontWeight: FontWeight.w700,
+          style: context.textTheme.labelMedium?.copyWith(
+            color: context.textTheme.bodyLarge?.color,
           ),
         ),
       ],

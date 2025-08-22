@@ -1,5 +1,4 @@
-import 'package:al_barq/src/core/components/layout_widget.dart';
-import 'package:al_barq/src/features/products/components/search_products.dart';
+import 'package:al_barq/src/core/components/nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -9,18 +8,10 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(title: 'Cart'),
+      appBar: AppBarWidget(title: 'Add to cart'),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            DiscoverProductsSection(),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-            //   child: SizedBox(
-            //     height: context.height,
-            //     child: FilterProductWidget(),
-            //   ),
-            // ),
           ],
         ),
       ),
